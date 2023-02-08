@@ -1,11 +1,15 @@
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
+import PocketBase, { BaseAuthStore } from 'pocketbase';
+
 declare global {
-	namespace App {
+	declare namespace App {
 		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}
 		// interface Platform {}
+		interface Locals {
+			pb: PocketBase;
+			user: BaseAuthStore;
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
+import type { Actions } from '@sveltejs/kit';
 
-/** @type {import('./$types').Actions} */
-export const actions = {
+export const actions: Actions = {
 	register: async ({ locals, request }) => {
 		const body = Object.fromEntries(await request.formData());
 		try {

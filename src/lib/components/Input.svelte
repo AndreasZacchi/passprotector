@@ -1,4 +1,4 @@
-<script language="typescript">
+<script lang="ts">
 	export let value = '';
 	export let placeholder = '';
 	export let id: string;
@@ -6,16 +6,11 @@
 	export let type = 'text';
 	export let disabled = false;
 	export let required = false;
-
-	export let errors;
 </script>
 
-<div>
+<div class="mt-2">
 	<label for={id}>
 		<span>{label}</span>
 	</label>
 	<input {type} {placeholder} {required} {disabled} {id} name={id} {value} />
-	{#if errors}
-		{#each errors as error}<label for={id}>{error}</label>{/each}
-	{/if}
 </div>

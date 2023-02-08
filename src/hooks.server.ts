@@ -1,20 +1,19 @@
-// @ts-nocheck
 import PocketBase from 'pocketbase';
-import { serializeNonPOJOS } from '$lib/utils';
+import { serializeNonPOJOS } from './lib/utils';
+import type { Handle } from '@sveltejs/kit';
 
-/** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ event, resolve }) {
+export const handle: Handle = async function ({ event, resolve }) {
 	event.locals.pb = new PocketBase('http://127.0.0.1:8090');
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
 	try {
 		if (event.locals.pb.authStore.isValid) {
 			await event.locals.pb.collection('users').authRefresh();
-			event.locals.user = serializeNonPOJOS(event.locals.pb.authStore.model);
+			event.locals.user = serializeNonPOJOS(event.locals.pb.authStore);
 		}
 	} catch (_) {
 		event.locals.pb.authStore.clear();
-		event.locals.user = undefined;
+		event.locals.user = event.locals.pb.authStore;
 	}
 
 	const response = await resolve(event);
@@ -23,4 +22,4 @@ export async function handle({ event, resolve }) {
 	response.headers.set('set-cookie', event.locals.pb.authStore.exportToCookie({ secure: false }));
 
 	return response;
-}
+};

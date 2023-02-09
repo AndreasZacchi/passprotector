@@ -15,3 +15,5 @@ pb/pb_data/logs.db
 pb/pb_data/logs.db
 pb/pb_data/logs.db-shm
 pb/pb_data/logs.db-wal
+pb/pb_data/data.db-shm
+pb/pb_data/data.db-wal

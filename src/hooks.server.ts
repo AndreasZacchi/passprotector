@@ -10,6 +10,7 @@ export const handle: Handle = async function ({ event, resolve }) {
 		if (event.locals.pb.authStore.isValid) {
 			await event.locals.pb.collection('users').authRefresh();
 			event.locals.user = serializeNonPOJOS(event.locals.pb.authStore);
+			console.log('Auth check');
 		}
 	} catch (_) {
 		event.locals.pb.authStore.clear();

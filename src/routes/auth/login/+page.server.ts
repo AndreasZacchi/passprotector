@@ -13,6 +13,6 @@ export const actions: Actions = {
 			console.log('Error: ', err);
 			throw error(500, 'Something went wrong');
 		}
-		throw redirect(303, '/');
+		throw redirect(303, '/dashboard');
 	}
 };

@@ -6,8 +6,9 @@
 	<a href="/">
 		<img alt="Logo" src="/logo.png" height="64" width="64" />
 	</a>
-	<div>
+	<div class="flex items-center">
 		{#if loggedIn}
+			<a href="/profile" class="w-10 h-10 bg-main-200 mr-4 rounded-full"><img /></a>
 			<form action="/auth/logout" method="POST" class="mr-4">
 				<button type="submit">Log out</button>
 			</form>

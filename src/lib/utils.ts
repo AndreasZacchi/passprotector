@@ -1,5 +1,5 @@
-import type { BaseAuthStore } from 'pocketbase';
+import type { Admin, Record } from 'pocketbase';
 
-export const serializeNonPOJOS = (obj: BaseAuthStore) => {
+export const serializeNonPOJOS = (obj: Record | Admin | null) => {
 	return structuredClone(obj);
 };

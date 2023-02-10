@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Navbar from '$lib/components/Navbar.svelte';
-	import { BaseAuthStore } from 'pocketbase';
+	import { Record } from 'pocketbase';
 	import '../app.css';
-	export let data: { user: BaseAuthStore };
+	export let data: { user: Record };
 </script>
 
-<Navbar loggedIn={data.user ? true : false} />
+<Navbar {data} />
 <slot />

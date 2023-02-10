@@ -1,5 +1,6 @@
-<script lang ts>
-	export let loggedIn = false;
+<script lang="ts">
+	import { Record } from 'pocketbase';
+	export let data: { user: Record };
 </script>
 
 <div class="bg-slate-600 flex h-16 items-center justify-between text-white">
@@ -7,8 +8,8 @@
 		<img alt="Logo" src="/logo.png" height="64" width="64" />
 	</a>
 	<div class="flex items-center">
-		{#if loggedIn}
-			<a class="w-10 h-10 bg-main-200 rounded-full mr-4" href="/profile" />
+		{#if data.user}
+			<a class="mr-3" href="/profile">Profile</a>
 			<form action="/auth/logout" method="POST" class="mr-4">
 				<button type="submit">Log out</button>
 			</form>

@@ -1,5 +1,5 @@
-<div style="background-color: white;"
-class="grid grid-cols-2 h-[calc(100vh-2rem)]"> 
+<div style="background-color: #f1f5f8;"
+class="grid grid-cols-2 h-[calc(120vh)]"> 
 
 <!--Ad text and button ment to lure people in-->
     <div class="flex flex-col w-12/12 h-3/3 p-8">
@@ -21,15 +21,25 @@ class="grid grid-cols-2 h-[calc(100vh-2rem)]">
     </div>
 
 <!--Reviews-->
-    <div class="bg-main-300 text-white p-5">
-        <h1 class="italic font-bold mb-1">Marques Brownley (MKBHD)</h1>
-        <span>
-            If you're looking for a new password manager, I'd definitely give PassProtector a look.
-        </span>
+    <div class="bg-main-300 text-white p-2 flex flex-col justify-center px-6 h-2/3">
+        <ul>
+            <li>
+                <h1 class="italic font-bold mb-1">Marques Brownley (MKBHD)</h1>
+                <span class="mb-1">
+                    If you're looking for a new password manager, I'd definitely give PassProtector a look.
+                </span>
+            </li>
+            <li>
+                <h1 class="italic font-bold mb-1">Sebastian Linus (Linus Tech Tips)</h1>
+                <span class="mb-1">
+                    Suiiiiiiii
+                </span>
+            </li>
+        </ul>
     </div>
 
 <!--stars-->
-    <div class="bg-main-300 flex items-center">
+    <div class="bg-main-300 flex items-center px-6 h-2/3">
         <img class="w-48 h-16 mr-4 object-center" src="trustpilot5stars.png" alt="Trustpilot rating">
     </div>
 </div>

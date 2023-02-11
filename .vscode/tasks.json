@@ -14,7 +14,7 @@
 		{
 			"label": "database",
 			"type": "shell",
-			"command": "cd pb && pocketbase.exe serve",
+			"command": ".\\pb\\pocketbase.exe serve",
 			"presentation": {
 				"panel": "dedicated"
 			}

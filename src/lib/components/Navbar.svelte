@@ -3,7 +3,7 @@
 	export let data: { user: Record };
 </script>
 
-<div class="bg-slate-600 flex h-16 items-center justify-between text-white">
+<div class="bg-slate-800 flex h-16 items-center justify-between text-white">
 	<a href="/">
 		<img alt="Logo" src="/logo.png" height="64" width="64" />
 	</a>

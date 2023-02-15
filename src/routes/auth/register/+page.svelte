@@ -3,12 +3,10 @@
 </script>
 
 <!-- Window div -->
-<div class="flex justify-center h-[calc(100vh-4rem)] items-center" 
-style="background-color: rgb(249, 115, 22); background-image: radial-gradient(at 0% 100%, rgb(220, 38, 38) 0, transparent 100%), radial-gradient(at 0% 0%, rgb(249, 115, 22) 0, transparent 100%), radial-gradient(at 100% 100%, rgb(253, 224, 71) 0, transparent 100%), radial-gradient(at 100% 0%, rgb(251, 146, 60) 0, transparent 100%);
-">
+<div class="flex justify-center h-[calc(100vh-4rem)] items-center">
 
 	<!-- Register form -->
-	<form action="?/register" method="POST" class="bg-white rounded-3xl py-2 w-fit p-6 pt-3 pb-4 p-10 text-3xl">
+	<form action="?/register" method="POST" class="bg-white rounded-3xl py-2 w-fit pt-3 pb-4 p-10 text-3xl border-main-300 border-4">
 
 		<!-- Logo div -->
 		<div class="flex justify-center">

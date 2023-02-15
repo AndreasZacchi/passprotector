@@ -1,36 +1,69 @@
-<div style="background-color: #f1f5f8;"
-class="grid grid-cols-2 h-[calc(120vh)]"> 
+<!--Main Div-->
+<div class="bg-white">
 
-<!--Ad text and button ment to lure people in-->
-    <div class="flex flex-col w-12/12 h-[calc(100vh-4rem)] p-8 border-yellow-400 border-2">
-        <h1 class="text-4xl font-poppins font-bold text-main-200 border-green-400 border-2">
-            Take control of your online security with ease!
-        </h1>
-        <span class="mt-2 border-green-400 border-2">
-            Unlock the power of online security with PassProtector! Say goodbye to endless password resets, account lockouts, and security headaches. Store all your passwords in one secure and convenient place and enjoy peace of mind with just one master password. Make PassProtector your digital bodyguard and experience hassle-free, rock-solid security. Get started today!
-        </span>
-        <button type="button" 
-        class="mt-11 bg-main-300 rounded-md h-10 w-60 font-poppins text-white ease-in duration-150 hover:bg-main-200 border-green-400 border-2">
-            Try PassProtector for Free
-        </button>
+    <!--Homepage top div-->
+    <div class="bg-slate-100 w-12/12 h-[calc(100vh-4rem-10rem)] flex flex-row place-items-center">
+
+        <!--Left div, the div with text-->
+        <div class="w-6/12 px-36">
+
+            <!--Header-->
+            <h1 class="text-4xl font-poppins font-bold text-main-300 mb-2">
+                Take control of your online security with ease!
+            </h1>
+
+            <!--Sales pitch-->
+            <span class="text-xl">
+                Unlock the power of online security with PassProtector! Say goodbye to endless password resets, account lockouts, and security headaches. Store all your passwords in one secure and convenient place and enjoy peace of mind with just one master password. Make PassProtector your digital bodyguard and experience hassle-free, rock-solid security. Get started today!
+            </span>
+    
+            <!--list of features-->
+            <ul class="my-8">
+                <li class="flex flex-row">
+                    <img class="h-6" src="checkmark.png" alt="checkmark">
+                    <h2 class="ml-2 mb-3 text-xl">
+                        Military grade encryption
+                    </h2>
+                </li>
+                <li class="flex flex-row">
+                    <img class="h-6" src="checkmark.png" alt="checkmark">
+                    <h3 class="ml-2 mb-3 text-xl">
+                        Password generation
+                    </h3>
+                </li>
+                <li class="flex flex-row">
+                    <img class="h-6" src="checkmark.png" alt="checkmark">
+                    <h4 class="ml-2 text-xl">
+                        Endnu en god ting ved vores passwordmanager
+                    </h4>
+                </li>
+            </ul>
+
+            <!--Try for free button-->
+            <button type="button"
+            class="bg-main-300 rounded-md h-10 w-60 font-poppins text-white ease-in duration-150 hover:bg-main-200 ">
+                Try PassProtector for Free
+            </button>
+        </div>
+
+        <!--right div, the div with a picture-->
+        <div class="w-6/12 flex justify-center">
+            <img class="h-96" src="PLACEHOLDER.png" alt="PassProtector example">
+        </div>
     </div>
 
-<!--Picture example div, ment to show example of our website when logged in-->
-    <div class="w-12/12 p-8 h-[calc(100vh-4rem)] border-red-400 border-2">
-        <img class ="border-purple-400 border-2" src="PLACEHOLDER.png" alt="PassProtector example">
-    </div>
+    <!--Reviews-->
+    <div class="h-40 flex justify-between place-items-center px-14">
 
-<!--Reviews-->
-<!--    <div class="bg-main-300 text-white p-2 flex flex-col justify-center px-6 h-44">
+        <!--Review-->
+        <div class="text-black">
+            <h1 class="italic font-bold mb-1 text-main-300">Marques Brownley (MKBHD)</h1>
+            <span class="mb-1 text-black">
+                If you're looking for a new password manager, I'd definitely give PassProtector a look.
+            </span>
+        </div>
 
-        <h1 class="italic font-bold mb-1">Marques Brownley (MKBHD)</h1>
-        <span class="mb-1">
-            If you're looking for a new password manager, I'd definitely give PassProtector a look.
-        </span>
-    </div>
-
-stars
-    <div class="bg-main-300 flex items-center px-6 h-44">
         <img class="w-48 h-16 mr-4 object-center" src="trustpilot5stars.png" alt="Trustpilot rating">
-    </div> -->
+
+    </div>
 </div>

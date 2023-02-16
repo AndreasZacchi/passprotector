@@ -3,7 +3,11 @@ module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
 		extend: {
+			boxShadow: {
+				y: '0 3px 4px 0 rgba(0, 0, 0, 0.3)'
+			},
 			fontFamily: {
+				helvetica: ['helvetica'],
 				poppins: ['poppins']
 			},
 			colors: {

@@ -9,11 +9,11 @@ export const handle: Handle = async function ({ event, resolve }) {
 	try {
 		if (event.locals.pb.authStore.isValid) {
 			await event.locals.pb.collection('users').authRefresh();
-			event.locals.user = serializeNonPOJOS(event.locals.pb.authStore);
+			event.locals.user = serializeNonPOJOS(event.locals.pb.authStore.model);
 		}
 	} catch (_) {
 		event.locals.pb.authStore.clear();
-		event.locals.user = event.locals.pb.authStore;
+		event.locals.user = undefined;
 	}
 
 	const response = await resolve(event);

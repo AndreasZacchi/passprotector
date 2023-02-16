@@ -8,7 +8,7 @@ declare global {
 		// interface Platform {}
 		interface Locals {
 			pb: PocketBase;
-			user: BaseAuthStore;
+			user: Record;
 		}
 	}
 }

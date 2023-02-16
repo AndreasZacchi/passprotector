@@ -4,17 +4,8 @@ module.exports = {
 	theme: {
 		extend: {
 
-			keyframes: {
-				
-				slideanimation: {
-					'0%': { borderColor: 'Black' },
-					'100%': { borderColor: '#ff6b00' },
-				}
-
-			},
-
-			animation: {
-				'slide': 'slideanimation 3s ease-out',
+			fontFamily: {
+				poppins: ['poppins']
 			},
 
 			colors: {
@@ -27,11 +18,15 @@ module.exports = {
 				}
 			},
 
-			borderWidth: {
-				'3': '2.4px',
-			},
+			boxShadow: {
+				y: '0 3px 4px 0 rgba(0, 0, 0, 0.3)',
+			}
+
 
 		}
 	},
-	plugins: []
+	
+	plugins: [
+		
+	]
 };

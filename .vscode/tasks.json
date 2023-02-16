@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
 	"version": "2.0.0",
 	"tasks": [
 		/// ...other tasks...
@@ -28,3 +29,34 @@
 		}
 	]
 }
+=======
+    "version": "2.0.0",
+    "tasks": [
+        /// ...other tasks...
+        {
+            "label": "runDevelopment",
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "dependsOrder": "parallel",
+            "dependsOn": ["database", "website"]
+        },
+        {
+            "label": "database",
+            "type": "shell",
+            "command": "./pb/pocketbase.exe serve",
+            "presentation": {
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "website",
+            "type": "shell",
+            "command": "npm run dev",
+            "presentation": {
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
+>>>>>>> Stashed changes

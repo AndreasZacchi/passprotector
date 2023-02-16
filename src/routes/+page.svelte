@@ -23,12 +23,12 @@
             "Password sharing",
             "Password leak detection"
         ],
-        color: "bg-orange-200"
+        color: "bg-gray-50"
     };
 
     //Basis subscribtion model
     let basis: Subscription = {
-        name: "Basic", 
+        name: "Basis", 
         price: 10, 
         included: [
             "Google autofill", 
@@ -40,7 +40,7 @@
             "Unlimited passwords",
             "Password leak detection"
         ],
-        color: "bg-orange-300"
+        color: "bg-slate-600"
     };
     
     //Premium subscribtion model
@@ -169,16 +169,17 @@
     <!--Subscription models-->
     <div class="py-10 flex flex-col justify-center place-items-center">
 
-        <h1 class="text-4xl font-helvetica text-main-300">PassProtector plans</h1>
+        <h1 class="text-4xl font-helvetica text-main-300">PassProtector Plans</h1>
 
 
         <div class="flex flex-row mt-8">
             <!--Subscription model box builder-->
             {#each subscriptionModels as sub}
 
-            <!--Subscription model box-->
-            <div class="{sub.color} rounded-lg px-5 hover:px-6 mx-10 hover:mx-[2.25rem] my-2 hover:my-0 h-[30rem] hover:h-[30.5rem] w-80 hover:w-[20.5rem] shadow-y hover:shadow-yxl duration-300">
-                <h1 class="flex justify-center font-bold text-lg mt-8 mb-4">{sub.name}</h1>
+            <!--Subscription model box   style="background: linear-gradient(rgb(0, 91, 187) 50%, rgb(255, 213, 0) 50%);-->
+            <a href="https://youtube.com"
+            class="{sub.color} rounded-lg px-5 hover:px-6 mx-10 hover:mx-[2.25rem] my-2 hover:my-0 h-[30rem] hover:h-[30.5rem] w-80 hover:w-[20.5rem] shadow-y hover:shadow-yxl duration-300">
+                <h1 class="font-helvetica flex justify-center text-2xl mt-8 mb-4">{sub.name}</h1>
 
                 <!--Plan Price-->
                 <div class="">
@@ -197,12 +198,7 @@
                 {#each sub.missing as feature}
                 <p class="mb-1 italic">- {feature}</p>
                 {/each}
-
-                <!--Get plan button-->
-                <a class="mt-8 bg-main-300 hover:bg-main-200 duration-100 rounded-2xl py-1 px-3 flex justify-center mb-8" href="https://www.pornhub.com/gayporn">
-                    Get {sub.name} Plan
-                </a>
-            </div>
+            </a>
             {/each}
         </div>
     </div>

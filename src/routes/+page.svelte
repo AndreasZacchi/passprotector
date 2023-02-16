@@ -1,5 +1,62 @@
 <script lang="ts">
-    let i
+	import { each } from "svelte/internal";
+
+    type Subscription = {
+		name: string;
+		price: number;
+		included: Array<string>;
+        missing: Array<string>;
+	}
+
+    // Free subscribtion model
+    let free: Subscription = {
+        name: "Free", 
+        price: 0, 
+        included: [
+            "Google autofill", 
+            "10 passwords"
+        ],
+        missing: [
+            "Unlimited passwords", 
+            "Family Sharing", 
+            "Password sharing",
+            "Password leak detection"
+        ]
+    };
+
+    //Basis subscribtion model
+    let basis: Subscription = {
+        name: "Basic", 
+        price: 10, 
+        included: [
+            "Google autofill", 
+            "100 passwords", 
+            "Family Sharing", 
+            "Password sharing"
+        ],
+        missing: [
+            "Unlimited passwords",
+            "Password leak detection"
+        ]
+    };
+    
+    //Premium subscribtion model
+    let premium: Subscription = {
+        name: "Premium", 
+        price: 20, 
+        included: [
+            "Google autofill", 
+            "Unlimited passwords", 
+            "Family Sharing", 
+            "Password sharing",
+            "Password leak detection"
+        ],
+        missing: [
+            "Nothing"
+        ]
+        };
+        
+    let subscriptionModels: Array<Subscription> = [free, basis, premium]
 
 </script>
 
@@ -9,10 +66,10 @@
 <div class="bg-white">
 
     <!--Homepage top div-->
-    <div class="bg-blue-50 w-12/12 py-[22vh] lg:px-40 md:px-20 flex flex-row place-items-center">
+    <div class="bg-blue-50 w-12/12 py-16 md:py-20 lg:py-24 px-20 flex flex-row place-items-center">
 
         <!--Left div, the div with text-->
-        <div class="w-8/12 px-20">
+        <div class="w-7/12">
 
             <!--Header-->
             <h1 class="text-4xl font-helvetica text-main-300 mb-2">
@@ -54,13 +111,13 @@
         </div>
 
         <!--right div, the div with a picture-->
-        <div class="w-4/12 flex justify-center">
-            <img class="h-96" src="PLACEHOLDER.png" alt="PassProtector example">
+        <div class="w-5/12 flex justify-center">
+            <img class="h-max" src="PLACEHOLDER.png" alt="PassProtector example">
         </div>
     </div>
 
     <!--Reviews-->
-    <div class="h-40 flex justify-evenly place-items-center px-14 shadow-y">
+    <div class="py-5 flex justify-evenly place-items-center px-14 shadow-y">
 
         <!--Review carousel-->
         <div>
@@ -105,50 +162,29 @@
     </div>
 
     
-    <!--Subscription model-->
-    <div class="h-[50vh] flex flex-row justify-center place-items-center">
+    <!--Subscription models-->
+    <div class="py-10 flex flex-row justify-center place-items-center">
 
-        <!--Basis model-->
-        <div class="border-2 border-green-500 w-64 h-[80%] mr-3 rounded-3xl py-3 px-6 hover:py-6 hover:px-10 hover:w-[18rem] hover:h-[85%] hover:mx-0 duration-150">
-            <h1 class="flex justify-center mb-3 font-bold">
-                Basis
-            </h1>
-            <ul>
-                <li class="mb-1"> - Google autofill </li>
-                <li class="mb-1"> - Unlimited passwords </li>
-                <li class="mb-1"> - Multiple accounts </li>
-                <li class="mb-1"> - Password sharing </li>
-                <li class="mb-1"> - Password leak detection </li>
-            </ul>
-        </div>
+        <!--Subscription model box builder-->
+        {#each subscriptionModels as sub}
 
-        <!--Medium model-->
-        <div class="border-2 border-green-500 w-64 h-[80%] mx-3 rounded-3xl py-3 px-6 hover:py-6 hover:px-10 hover:w-[18rem] hover:h-[85%] hover:mx-0 duration-150">
-            <h1 class="flex justify-center mb-3 font-bold">
-                Medium
-            </h1>
-            <ul>
-                <li class="mb-1"> - Google autofill </li>
-                <li class="mb-1"> - Unlimited passwords </li>
-                <li class="mb-1"> - Multiple accounts </li>
-                <li class="mb-1"> - Password sharing </li>
-                <li class="mb-1"> - Password leak detection </li>
-            </ul>
-        </div>
+        <!--Subscription model box-->
+        <div class="border-2 border-green-500 py-4 rounded-2xl w-60 px-5 mx-4 hover:py-6 duration-300">
+            <h1 class="flex justify-center mb-6 font-bold text-lg">{sub.name}</h1>
 
-        <!--Expensive model-->
-        <div class="border-2 border-green-500 w-64 h-[80%] ml-3 rounded-3xl py-3 px-6 hover:py-6 hover:px-10 hover:w-[18rem] hover:h-[85%] hover:mx-0 duration-150">
-            <h1 class="flex justify-center mb-3 font-bold">
-                Premium
-            </h1>
-            <ul>
-                <li class="mb-1"> - Google autofill </li>
-                <li class="mb-1"> - Unlimited passwords </li>
-                <li class="mb-1"> - Multiple accounts </li>
-                <li class="mb-1"> - Password sharing </li>
-                <li class="mb-1"> - Password leak detection </li>
-            </ul>
+            <!--Model included features list-->
+            <h2> Included </h2>
+            {#each sub.included as feature}
+            <p class="mb-1 italic">- {feature}</p>
+            {/each}
+
+            <!--Model missing features list-->
+            <h3 class="mt-3"> Missing </h3>
+            {#each sub.missing as feature}
+            <p class="mb-1 italic">- {feature}</p>
+            {/each}
         </div>
+        {/each}
 
     </div>
 </div>

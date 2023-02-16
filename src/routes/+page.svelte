@@ -1,12 +1,18 @@
+<script lang="ts">
+    let i
+
+</script>
+
+
 
 <!--Main Div-->
 <div class="bg-white">
 
     <!--Homepage top div-->
-    <div class="bg-blue-50 w-12/12 h-[calc(100vh-4rem-10rem)] flex flex-row place-items-center">
+    <div class="bg-blue-50 w-12/12 py-[22vh] lg:px-40 md:px-20 flex flex-row place-items-center">
 
         <!--Left div, the div with text-->
-        <div class="w-6/12 px-36">
+        <div class="w-8/12 px-20">
 
             <!--Header-->
             <h1 class="text-4xl font-helvetica text-main-300 mb-2">
@@ -15,7 +21,7 @@
 
             <!--Sales pitch-->
             <span class="text-xl">
-                Unlock the power of online security with PassProtector! Say goodbye to endless password resets, account lockouts, and security headaches. Store all your passwords in one secure and convenient place and enjoy peace of mind with just one master password. Make PassProtector your digital bodyguard and experience hassle-free, rock-solid security. Get started today!
+                Unlock the power of online security with PassProtector! Say goodbye to endless password resets, account lockouts, and security headaches. Store all your passwords in one secure and convenient place and enjoy peace of mind with just one master password.
             </span>
     
             <!--list of features-->
@@ -48,12 +54,11 @@
         </div>
 
         <!--right div, the div with a picture-->
-        <div class="w-6/12 flex justify-center">
+        <div class="w-4/12 flex justify-center">
             <img class="h-96" src="PLACEHOLDER.png" alt="PassProtector example">
         </div>
     </div>
 
-    <!--https://www.w3schools.com/howto/howto_js_slideshow.asp-->
     <!--Reviews-->
     <div class="h-40 flex justify-evenly place-items-center px-14 shadow-y">
 

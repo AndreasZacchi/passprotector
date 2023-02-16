@@ -6,6 +6,7 @@
 		price: number;
 		included: Array<string>;
         missing: Array<string>;
+        color: string;
 	}
 
     // Free subscribtion model
@@ -21,7 +22,8 @@
             "Family Sharing", 
             "Password sharing",
             "Password leak detection"
-        ]
+        ],
+        color: "bg-orange-200"
     };
 
     //Basis subscribtion model
@@ -37,7 +39,8 @@
         missing: [
             "Unlimited passwords",
             "Password leak detection"
-        ]
+        ],
+        color: "bg-orange-300"
     };
     
     //Premium subscribtion model
@@ -53,8 +56,9 @@
         ],
         missing: [
             "Nothing"
-        ]
-        };
+        ],
+        color: "bg-orange-400"
+    };
         
     let subscriptionModels: Array<Subscription> = [free, basis, premium]
 
@@ -66,7 +70,7 @@
 <div class="bg-white">
 
     <!--Homepage top div-->
-    <div class="bg-blue-50 w-12/12 py-16 md:py-20 lg:py-24 px-20 flex flex-row place-items-center">
+    <div class="bg-blue-50 w-12/12 py-[18vh] px-[18vw] flex flex-row place-items-center">
 
         <!--Left div, the div with text-->
         <div class="w-7/12">
@@ -163,28 +167,43 @@
 
     
     <!--Subscription models-->
-    <div class="py-10 flex flex-row justify-center place-items-center">
+    <div class="py-10 flex flex-col justify-center place-items-center">
 
-        <!--Subscription model box builder-->
-        {#each subscriptionModels as sub}
+        <h1 class="text-4xl font-helvetica text-main-300">PassProtector plans</h1>
 
-        <!--Subscription model box-->
-        <div class="border-2 border-green-500 py-4 rounded-2xl w-60 px-5 mx-4 hover:py-6 duration-300">
-            <h1 class="flex justify-center mb-6 font-bold text-lg">{sub.name}</h1>
 
-            <!--Model included features list-->
-            <h2> Included </h2>
-            {#each sub.included as feature}
-            <p class="mb-1 italic">- {feature}</p>
-            {/each}
+        <div class="flex flex-row mt-8">
+            <!--Subscription model box builder-->
+            {#each subscriptionModels as sub}
 
-            <!--Model missing features list-->
-            <h3 class="mt-3"> Missing </h3>
-            {#each sub.missing as feature}
-            <p class="mb-1 italic">- {feature}</p>
+            <!--Subscription model box-->
+            <div class="{sub.color} rounded-lg px-5 hover:px-6 mx-10 hover:mx-[2.25rem] my-2 hover:my-0 h-[30rem] hover:h-[30.5rem] w-80 hover:w-[20.5rem] shadow-y hover:shadow-yxl duration-300">
+                <h1 class="flex justify-center font-bold text-lg mt-8 mb-4">{sub.name}</h1>
+
+                <!--Plan Price-->
+                <div class="">
+                    <span class="text-2xl italic font-medium flex justify-center">{sub.price} DKK</span>
+                    <p class="flex justify-center text-sm mb-4">Per month</p>
+                </div>
+
+                <!--Model included features list-->
+                <h2 class="underline"> Included </h2>
+                {#each sub.included as feature}
+                <p class="mb-1 italic">- {feature}</p>
+                {/each}
+
+                <!--Model missing features list-->
+                <h3 class="mt-3 underline"> Missing </h3>
+                {#each sub.missing as feature}
+                <p class="mb-1 italic">- {feature}</p>
+                {/each}
+
+                <!--Get plan button-->
+                <a class="mt-8 bg-main-300 hover:bg-main-200 duration-100 rounded-2xl py-1 px-3 flex justify-center mb-8" href="https://www.pornhub.com/gayporn">
+                    Get {sub.name} Plan
+                </a>
+            </div>
             {/each}
         </div>
-        {/each}
-
     </div>
 </div>

@@ -28,6 +28,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"pocketbase": "^0.10.1"
+		"pocketbase": "^0.10.1",
+		"Zod": "npm:zod@^3.20.6"
 	}
 }

@@ -1,17 +1,27 @@
-import { error, redirect } from '@sveltejs/kit';
+import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
+import { ClientResponseError } from 'pocketbase';
+
+export const load: ServerLoad = ({ locals }) => {
+	if (locals.user) {
+		throw redirect(302, '/dashboard');
+	}
+};
 
 export const actions: Actions = {
 	login: async ({ locals, request }) => {
-		const body = Object.fromEntries(await request.formData());
+		const data = Object.fromEntries(await request.formData());
 
 		try {
 			await locals.pb
 				.collection('users')
-				.authWithPassword(body.email.toString(), body.password.toString());
+				.authWithPassword(data.email.toString(), data.password.toString());
 		} catch (err) {
-			console.log('Error: ', err);
-			throw error(500, 'Something went wrong');
+			if (err instanceof ClientResponseError) {
+				const email = data.email;
+				const error = 'Wrong email or password.';
+				return fail(400, { email, error });
+			}
 		}
 		throw redirect(303, '/dashboard');
 	}

@@ -6,24 +6,30 @@
 	export let label: string;
 	export let disabled = false;
 	export let required = false;
-	export let error = "Something went wrong";
+	export let error: string | undefined;
 </script>
 
 <div class="mt-2 flex flex-col">
-
-	<label class="" for="{id}">
+	<label for={id}>
 		<span class=" text-2xl">{label}</span>
 	</label>
 
-	<input class="border-b-[2px] border-black outline-none text-lg w-80
+	<input
+		class="border-b-[2px] border-black outline-none text-lg w-80
 	focus:border-main-300 focus:border-b-[3px] focus:mb-[-1px] transition delay-75
-	hover:border-gray-700 hover:border-b-[3px] hover:mb-[-1px]" 
-	{type} {placeholder} {required} {disabled} {id} name={id} {value} />
+	hover:border-gray-700 hover:border-b-[3px] hover:mb-[-1px]"
+		{type}
+		{placeholder}
+		{required}
+		{disabled}
+		{id}
+		name={id}
+		{value}
+	/>
 
-	<div class="mb-2">
+	<div class="my-1 h-4 text-sm text-red-500">
 		{#if error}
-		<span class="text-sm text-red-500">{error}</span>
+			{error}
 		{/if}
 	</div>
-	
 </div>

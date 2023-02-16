@@ -25,7 +25,12 @@ module.exports = {
 					400: '#F56600',
 					500: '#E05E00'
 				}
-			}
+			},
+
+			borderWidth: {
+				'3': '2.4px',
+			},
+
 		}
 	},
 	plugins: []

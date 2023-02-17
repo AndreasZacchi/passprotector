@@ -1,12 +1,56 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import type { ActionData } from './$types';
+	import { enhance } from '$app/forms';
+	export let form: ActionData;
 </script>
 
-<form action="?/register" method="POST" class="bg-gray-500 py-2">
-	<Input type="email" id="email" label="Email" />
-	<Input type="password" id="password" label="password" />
-	<Input type="password" id="passwordConfirm" label="Confirm Password" />
-	<div class="mt-2">
-		<button type="submit">Register</button>
-	</div>
-</form>
+<!-- Window div -->
+<div class="flex justify-center h-[calc(100vh-4rem)] items-center">
+	<!-- Register form -->
+	<form
+		action="?/register"
+		method="POST"
+		use:enhance
+		class=" shadow-2xl rounded-2xl py-2 w-fit p-16 pt-5 pb-5 text-3xl "
+	>
+		<!-- Logo div -->
+		<div class="flex justify-center">
+			<img src="/logo.png" alt="logo" width="512" height="512" class=" h-28 w-28" />
+		</div>
+
+		<!-- Register text div -->
+		<div class="flex justify-center">
+			<h1 class=" text-4xl pb-1">Register</h1>
+		</div>
+
+		<!-- Inputs -->
+		<Input
+			type="email"
+			label="Email"
+			id="email"
+			value={form?.email.toString()}
+			error={form?.errors?.fieldErrors.email ? 'Email must be valid!' : undefined}
+		/>
+		<Input
+			type="password"
+			label="Password"
+			id="password"
+			error={form?.errors?.fieldErrors.password != undefined
+				? 'Password must be at least 8 characters!'
+				: undefined}
+		/>
+		<Input
+			type="password"
+			label="Confirm Password"
+			id="passwordConfirm"
+			error={form?.errors?.formErrors.toString()}
+		/>
+
+		<!-- Button div -->
+		<div class="mt-2 flex justify-center pt-3">
+			<Button text="Register" textSize="text-2xl" boldness="font-semibold" width="w-8/12" />
+		</div>
+	</form>
+</div>

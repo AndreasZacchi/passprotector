@@ -67,61 +67,59 @@
 
 
 <!--Main Div-->
-<div class="bg-white">
+<div class="grid grid-cols-6 bg-white">
 
-    <!--Homepage top div-->
-    <div class="bg-blue-50 w-12/12 py-[18vh] px-[18vw] flex flex-row place-items-center">
+    <!--Left hero div, the div with text-->
+    <div class="bg-blue-50 col-start-2 col-span-2 py-44">
 
-        <!--Left div, the div with text-->
-        <div class="w-7/12">
+        <!--Header-->
+        <h1 class="text-4xl font-helvetica text-main-300 mb-2">
+            Take control of your online security with PassProtector!
+        </h1>
 
-            <!--Header-->
-            <h1 class="text-4xl font-helvetica text-main-300 mb-2">
-                Take control of your online security with PassProtector!
-            </h1>
-
-            <!--Sales pitch-->
-            <span class="text-xl">
-                Unlock the power of online security with PassProtector! Say goodbye to endless password resets, account lockouts, and security headaches. Store all your passwords in one secure and convenient place and enjoy peace of mind with just one master password.
-            </span>
+        <!--Sales pitch-->
+        <span class="text-xl">
+            Unlock the power of online security with PassProtector! Say goodbye to endless password resets, account lockouts, and security headaches. Store all your passwords in one secure and convenient place and enjoy peace of mind with just one master password.
+        </span>
     
-            <!--list of features-->
-            <ul class="my-10">
-                <li class="flex flex-row">
-                    <img class="h-5" src="checkmark.png" alt="checkmark">
-                    <h2 class="ml-2 mb-3 text-xl">
-                        Military grade encryption
-                    </h2>
-                </li>
-                <li class="flex flex-row">
-                    <img class="h-5" src="checkmark.png" alt="checkmark">
-                    <h3 class="ml-2 mb-3 text-xl">
-                        Password generation
-                    </h3>
-                </li>
-                <li class="flex flex-row">
-                    <img class="h-5" src="checkmark.png" alt="checkmark">
-                    <h4 class="ml-2 text-xl">
-                        Endnu en god ting ved vores passwordmanager
-                    </h4>
-                </li>
-            </ul>
+        <!--list of features-->
+        <ul class="my-10">
+            <li class="flex flex-row">
+                <img class="h-5" src="checkmark.png" alt="checkmark">
+                <h2 class="ml-2 mb-3 text-xl">
+                    Military grade encryption
+                </h2>
+            </li>
+            <li class="flex flex-row">
+                <img class="h-5" src="checkmark.png" alt="checkmark">
+                <h3 class="ml-2 mb-3 text-xl">
+                    Password Leak Detection
+                </h3>
+            </li>
+            <li class="flex flex-row">
+                <img class="h-5" src="checkmark.png" alt="checkmark">
+                <h4 class="ml-2 text-xl">
+                    Endnu en god ting ved vores passwordmanager
+                </h4>
+            </li>
+        </ul>
 
-            <!--Try for free button-->
-            <a href="/auth/register"
-            class="bg-main-300 rounded-lg p-2 font-poppins text-white ease-in duration-150 hover:bg-main-200 ">
-                Try PassProtector for Free
-            </a>
-        </div>
-
-        <!--right div, the div with a picture-->
-        <div class="w-5/12 flex justify-center">
-            <img class="h-max" src="PLACEHOLDER.png" alt="PassProtector example">
-        </div>
+        <!--Try for free button-->
+        <a href="/auth/register"
+        class="bg-main-300 rounded-lg p-2 font-poppins text-white ease-in duration-150 hover:bg-main-200 ">
+            Try PassProtector for Free
+        </a>
     </div>
 
+
+    <!--right hero div, the div with a picture-->
+    <div class="bg-blue-50 col-start-4 col-span-2 flex justify-center">
+        <img src="PLACEHOLDER.png" alt="PassProtector example">
+    </div>
+
+
     <!--Reviews-->
-    <div class="py-5 flex justify-evenly place-items-center px-14 shadow-y">
+    <div class="row-start-2 col-span-6 py-5 flex justify-evenly place-items-center px-14 shadow-y">
 
         <!--Review carousel-->
         <div>
@@ -167,7 +165,7 @@
 
     
     <!--Subscription models-->
-    <div class="py-10 flex flex-col justify-center place-items-center">
+    <div class="row-start-3 col-span-6 py-10 flex flex-col justify-center place-items-center">
 
         <h1 class="text-4xl font-helvetica text-main-300">PassProtector Plans</h1>
 
@@ -202,4 +200,48 @@
             {/each}
         </div>
     </div>
+
+    <!--Military grade encryption text-->
+    <div class="row-start-4 col-start-2 col-span-2 border-b-2 border-gray-200 py-44 px-20">
+        <h1 class="font-helvetica font-semibold text-2xl">Military Grade Encryption</h1>
+        <span> 
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </span>
+    </div> 
+
+    <!--Military grade encryption Picture-->
+    <div class="row-start-4 col-start-4 col-span-2 border-b-2 border-gray-200" >
+        <img src="logo.png" alt="Military Grade Encryption">
+    </div>
+
+
+    <!--Password Leak Detection-->
+    <div class="row-start-5 col-start-4 col-span-2 border-b-2 border-gray-200 py-44 px-20">
+        <h1 class="font-helvetica font-semibold text-2xl">Password Leak Detection</h1>
+        <span> 
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </span>
+    </div>
+
+    <!--Password Leak Detection Picture-->
+    <div class="row-start-5 col-start-2 col-span-2 border-b-2 border-gray-200" >
+        <img src="logo.png" alt="Military Grade Encryption">
+    </div>
+
+
+    <!--Lorum Ipsum-->
+    <div class="row-start-6 col-start-2 col-span-2 border-b-2 border-gray-200 py-44 px-20">
+        <div>
+            <h1 class="font-helvetica font-semibold text-2xl">Lorem Ipsum</h1>
+            <span> 
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </span>
+        </div>
+    </div>
+
+    <!--Lorem Ipsum Picture-->
+    <div class="row-start-6 col-start-4 col-span-2 border-b-2 border-gray-200" >
+        <img src="logo.png" alt="Military Grade Encryption">
+    </div>
+
 </div>

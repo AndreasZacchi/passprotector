@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
+	import Button from '$lib/components/Button.svelte';
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	export let form: ActionData;
@@ -29,11 +30,7 @@
 		<Input type="password" label="Password" id="password" error={form?.error} />
 		<!-- Button div -->
 		<div class="mt-2 flex justify-center pt-3">
-			<button
-				type="submit"
-				class=" bg-main-300 rounded-2xl w-8/12 text-2xl text-white font-semibold p-3 pt-2 m-2 hover:opacity-[0.85]"
-				>Login</button
-			>
+			<Button text="Login" textSize="text-2xl" boldness="font-semibold" width="w-8/12" />
 		</div>
 	</form>
 </div>

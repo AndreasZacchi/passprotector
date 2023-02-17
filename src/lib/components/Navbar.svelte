@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { Record } from 'pocketbase';
 	export let data: { user: Record };
+	import { navScroll } from '../utils';
+
+	navScroll();
 </script>
 
-<div class=" shadow-md flex h-16 items-center justify-between ">
+<div id="navbar" class=" flex h-16 w-full bg-blue-50 items-center justify-between fixed">
 	<a href="/">
 		<img alt="Logo" src="/logo.png" height="64" width="64" />
 	</a>

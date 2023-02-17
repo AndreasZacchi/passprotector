@@ -1,4 +1,5 @@
 import type { Admin, Record } from 'pocketbase';
+import { onMount } from 'svelte';
 
 import * as CryptoJS from 'crypto-js';
 
@@ -55,3 +56,28 @@ export const generatePassword = (secret: string) => {
 export const getPassword = (password: string, secret: string) => {
 	return CryptoJS.AES.decrypt(password, secret).toString(CryptoJS.enc.Utf8);
 };
+
+
+export const navScroll = () => {
+
+	onMount(() => { 
+		const navbar = document.getElementById("navbar");
+	
+		window.addEventListener("scroll", () => {
+			console.log("scrolling");
+			navbar!.style.backgroundColor = "rgb(255, 255, 255)";
+
+		});	
+	});
+
+	
+};
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { each } from "svelte/internal";
+	import type { ArrayCardinality } from "zod";
 
     type Subscription = {
 		name: string;
@@ -8,6 +9,12 @@
         missing: Array<string>;
         color: string;
 	}
+
+    type Review = {
+        name: string;
+        alias: string;
+        citation: string;
+    }
 
     // Free subscribtion model
     let free: Subscription = {
@@ -59,8 +66,30 @@
         ],
         color: "bg-orange-400"
     };
+
+    //MKBHD review
+    let mkbhd: Review = {
+        name: "Marques Brownley",
+        alias: "MKBHD",
+        citation: "If you're looking for a new password manager, I'd definitely give PassProtector a look."
+    }
+
+    //LTT review
+    let ltt: Review = {
+        name: "Linus Sebastian",
+        alias: "LTT",
+        citation: "Very good very nice"
+    }
+
+    //WSJ review
+    let wsj: Review = {
+        name: "Wall Street Journal",
+        alias: "WSJ",
+        citation: "No scam, very good"
+    }
         
     let subscriptionModels: Array<Subscription> = [free, basis, premium]
+    let reviews: Array<Review> = [mkbhd, ltt, wsj]
 
 </script>
 
@@ -70,7 +99,7 @@
 <div class="grid grid-cols-6 bg-white">
 
     <!--Left hero div, the div with text-->
-    <div class="bg-blue-50 col-start-2 col-span-2 py-44">
+    <div class="bg-blue-50 col-span-3 py-44 pl-[16.6vw] pr-6">
 
         <!--Header-->
         <h1 class="text-4xl font-helvetica text-main-300 mb-2">
@@ -113,7 +142,7 @@
 
 
     <!--right hero div, the div with a picture-->
-    <div class="bg-blue-50 col-start-4 col-span-2 flex justify-center">
+    <div class="col-start-4 col-span-3 pr-[16.6vw] py-44 bg-blue-50 flex justify-center">
         <img src="PLACEHOLDER.png" alt="PassProtector example">
     </div>
 
@@ -121,32 +150,15 @@
     <!--Reviews-->
     <div class="row-start-2 col-span-6 py-5 flex justify-evenly place-items-center px-14 shadow-y">
 
-        <!--Review carousel-->
-        <div>
-
-            <!--Corousel items, review list-->
-            <div>
-
-                <!--MKBHD review-->
-                <div id="review" class="">
-                    <h1 class="italic font-bold mb-1 text-main-300">Marques Brownley (MKBHD)</h1>
-                    <span class="mb-1 text-black">
-                        If you're looking for a new password manager, I'd definitely give PassProtector a look.
-                    </span>
+        <div class="flex flex-col border-green-500">
+            {#each reviews as rev}
+                <div class="flex flex-row text-main-300 font-bold">
+                    <h1 class="mr-2">{rev.name}</h1>
+                    <p class="flex justify-center">({rev.alias})</p>
                 </div>
-
-                <!--Harald review-->
-                <div id="review" class="">
-                    <h1 class="italic font-bold mb-1 text-main-300">Harald Riber (Jøden)</h1>
-                    <span class="mb-1 text-black">
-                        Bedre end badene i Auschwitz
-                    </span>
-                </div>
-
-            </div>
-
+                <p class="italic">"{rev.citation}"</p>
+            {/each}
         </div>
-
 
         <!--Trust pilot billede-->
         <img class="w-48 h-16 mr-4 object-center" src="trustpilot5stars.png" alt="Trustpilot rating">
@@ -201,47 +213,58 @@
         </div>
     </div>
 
-    <!--Military grade encryption text-->
-    <div class="row-start-4 col-start-2 col-span-2 border-b-2 border-gray-200 py-44 px-20">
-        <h1 class="font-helvetica font-semibold text-2xl">Military Grade Encryption</h1>
-        <span> 
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </span>
-    </div> 
 
-    <!--Military grade encryption Picture-->
-    <div class="row-start-4 col-start-4 col-span-2 border-b-2 border-gray-200" >
-        <img src="logo.png" alt="Military Grade Encryption">
+    <!--Military grade encryption-->
+    <div class="row-start-4 col-start-2 col-span-4 bg-orange-50 border-b-2 border-gray-200 flex flex-row">
+
+        <!--Military grade encryption text-->
+        <div class="py-44 px-20 w-1/2">
+            <h1 class="font-helvetica font-semibold text-2xl">Military Grade Encryption</h1>
+            <span> 
+                Protect your sensitive information with our password manager, featuring military grade encryption. Our advanced encryption algorithms provide the highest level of security, safeguarding your passwords, credit card details, and other personal data from unauthorized access. With our password manager, you can manage all your login credentials in one place, with the peace of mind that comes from using the ultimate level of protection for your sensitive information.
+            </span>
+        </div>
+
+        <!--Military grade encryption Picture-->
+        <div class="w-1/2 flex justify-center">
+            <img src="logo.png" alt="Military Grade Encryption">
+        </div>
     </div>
 
 
     <!--Password Leak Detection-->
-    <div class="row-start-5 col-start-4 col-span-2 border-b-2 border-gray-200 py-44 px-20">
-        <h1 class="font-helvetica font-semibold text-2xl">Password Leak Detection</h1>
-        <span> 
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </span>
-    </div>
+    <div class="row-start-5 col-start-2 col-span-4 border-b-2 border-gray-200 flex flex-row-reverse">
 
-    <!--Password Leak Detection Picture-->
-    <div class="row-start-5 col-start-2 col-span-2 border-b-2 border-gray-200" >
-        <img src="logo.png" alt="Military Grade Encryption">
-    </div>
-
-
-    <!--Lorum Ipsum-->
-    <div class="row-start-6 col-start-2 col-span-2 border-b-2 border-gray-200 py-44 px-20">
-        <div>
-            <h1 class="font-helvetica font-semibold text-2xl">Lorem Ipsum</h1>
-            <span> 
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        <!--Password Leak Detection Text-->
+        <div class="py-44 px-20 w-1/2">
+            <h1 class="font-helvetica font-semibold text-2xl">Password Leak Detection</h1>
+            <span>
+                Protect your online security with our password manager. Our cutting-edge technology can detect password leaks and alert you to potential security threats, helping you to safeguard your sensitive information. With our password manager, you can rest assured that your passwords are secure and that you'll be alerted in case of any leaks.
             </span>
+        </div>
+
+        <!--Password Leak Detection Picture-->
+        <div class="w-1/2 flex justify-center">
+            <img src="logo.png" alt="Military Grade Encryption">
         </div>
     </div>
 
-    <!--Lorem Ipsum Picture-->
-    <div class="row-start-6 col-start-4 col-span-2 border-b-2 border-gray-200" >
-        <img src="logo.png" alt="Military Grade Encryption">
+
+    <!--Lorem Ipsum-->
+    <div class="row-start-6 col-start-2 col-span-4 bg-orange-50 border-b-2 border-gray-200 flex flex-row">
+
+        <!--Lorem Ipsum Text-->
+        <div class="py-44 px-20 w-1/2">
+            <h1 class="font-helvetica font-semibold text-2xl">Lorem Ipsum</h1>
+            <span> 
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </span>
+        </div>
+
+        <div class="w-1/2 flex justify-center">
+            <img src="logo.png" alt="Military Grade Encryption">
+        </div>
     </div>
+
 
 </div>

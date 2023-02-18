@@ -6,7 +6,7 @@
 	export let label: string;
 	export let disabled = false;
 	export let required = false;
-	export let error: string | undefined;
+	export let error = '';
 </script>
 
 <div class="mt-2 flex flex-col">

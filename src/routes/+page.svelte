@@ -2,7 +2,7 @@
 	import { each } from "svelte/internal";
 	import type { ArrayCardinality } from "zod";
 
-    type Subscription = {
+	type Subscription = {
 		name: string;
 		price: number;
 		included: Array<string>;
@@ -16,22 +16,19 @@
         citation: string;
     }
 
-    // Free subscribtion model
-    let free: Subscription = {
-        name: "Free", 
-        price: 0, 
-        included: [
-            "Google autofill", 
-            "10 passwords"
-        ],
-        missing: [
-            "Unlimited passwords", 
-            "Family Sharing", 
-            "Password sharing",
-            "Password leak detection"
-        ],
-        color: "bg-gray-50"
-    };
+	// Free subscribtion model
+	let free: Subscription = {
+		name: 'Free',
+		price: 0,
+		included: ['Google autofill', '10 passwords'],
+		missing: [
+			'Unlimited passwords',
+			'Family Sharing',
+			'Password sharing',
+			'Password leak detection'
+		],
+		color: 'bg-gray-50'
+	};
 
     //Basis subscribtion model
     let basis: Subscription = {
@@ -92,8 +89,6 @@
     let reviews: Array<Review> = [mkbhd, ltt, wsj]
 
 </script>
-
-
 
 <!--Main Div-->
 <div class="grid grid-cols-6 bg-white">
@@ -160,9 +155,8 @@
             {/each}
         </div>
 
-        <!--Trust pilot billede-->
-        <img class="w-48 h-16 mr-4 object-center" src="trustpilot5stars.png" alt="Trustpilot rating">
-
+		<!--Trust pilot billede-->
+		<img class="w-48 h-16 mr-4 object-center" src="trustpilot5stars.png" alt="Trustpilot rating" />
 
         <!--Amount of users-->
         <div class="flex flex-col place-items-center">
@@ -182,26 +176,27 @@
         <h1 class="text-4xl font-helvetica text-main-300">PassProtector Plans</h1>
 
 
-        <div class="flex flex-row mt-8">
-            <!--Subscription model box builder-->
-            {#each subscriptionModels as sub}
+		<div class="flex flex-row mt-8">
+			<!--Subscription model box builder-->
+			{#each subscriptionModels as sub}
+				<!--Subscription model box   style="background: linear-gradient(rgb(0, 91, 187) 50%, rgb(255, 213, 0) 50%);-->
+				<a
+					href="https://youtube.com"
+					class="{sub.color} rounded-lg px-5 hover:px-6 mx-10 hover:mx-[2.25rem] my-2 hover:my-0 h-[30rem] hover:h-[30.5rem] w-80 hover:w-[20.5rem] shadow-y hover:shadow-yxl duration-300"
+				>
+					<h1 class="font-helvetica flex justify-center text-2xl mt-8 mb-4">{sub.name}</h1>
 
-            <!--Subscription model box   style="background: linear-gradient(rgb(0, 91, 187) 50%, rgb(255, 213, 0) 50%);-->
-            <a href="https://youtube.com"
-            class="{sub.color} rounded-lg px-5 hover:px-6 mx-10 hover:mx-[2.25rem] my-2 hover:my-0 h-[30rem] hover:h-[30.5rem] w-80 hover:w-[20.5rem] shadow-y hover:shadow-yxl duration-300">
-                <h1 class="font-helvetica flex justify-center text-2xl mt-8 mb-4">{sub.name}</h1>
+					<!--Plan Price-->
+					<div class="">
+						<span class="text-2xl italic font-medium flex justify-center">{sub.price} DKK</span>
+						<p class="flex justify-center text-sm mb-4">Per month</p>
+					</div>
 
-                <!--Plan Price-->
-                <div class="">
-                    <span class="text-2xl italic font-medium flex justify-center">{sub.price} DKK</span>
-                    <p class="flex justify-center text-sm mb-4">Per month</p>
-                </div>
-
-                <!--Model included features list-->
-                <h2 class="underline"> Included </h2>
-                {#each sub.included as feature}
-                <p class="mb-1 italic">- {feature}</p>
-                {/each}
+					<!--Model included features list-->
+					<h2 class="underline">Included</h2>
+					{#each sub.included as feature}
+						<p class="mb-1 italic">- {feature}</p>
+					{/each}
 
                 <!--Model missing features list-->
                 <h3 class="mt-3 underline"> Missing </h3>

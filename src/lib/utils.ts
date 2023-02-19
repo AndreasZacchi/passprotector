@@ -55,3 +55,51 @@ export const generatePassword = (secret: string) => {
 export const getPassword = (password: string, secret: string) => {
 	return CryptoJS.AES.decrypt(password, secret).toString(CryptoJS.enc.Utf8);
 };
+
+export const passwordStrength = (password: string) => {
+	return password.length;
+};
+
+export const averagePasswordStrength = (passwords: [website:string, password: string] | undefined) => {
+
+	//Password Strengths
+	let great = 20;
+	let good = 15;
+	let bad = 10;
+	//Everything under bad is terrible
+
+	let strength: string;
+
+	let sumPasswordLength = 0;
+	let sumPasswordStrength = 0;
+	let avrPasswordStrength: number;
+
+
+	if (passwords != undefined){
+
+		passwords.forEach(password => {
+			sumPasswordLength = sumPasswordLength + password.length;
+			sumPasswordStrength = sumPasswordStrength + passwordStrength(password);
+		});
+
+		avrPasswordStrength = sumPasswordLength*sumPasswordStrength/passwords.length;
+
+		if (avrPasswordStrength >= great){
+			strength = "great";
+		}
+		else if (avrPasswordStrength >= good) {
+			strength = "good";
+		}
+		else if (avrPasswordStrength >= bad) {
+			strength = "bad";
+		}
+		else {
+			strength = "terrible";
+		}
+	}
+	else {
+		strength = "none";
+	}
+
+	return strength;
+};

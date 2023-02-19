@@ -61,16 +61,29 @@ export const getPassword = (password: string, secret: string) => {
 export const navScroll = () => {
 
 	onMount(() => { 
+		
 		const navbar = document.getElementById("navbar");
+
+		if (navbar && window.location.pathname == "/") {
 	
-		window.addEventListener("scroll", () => {
-			console.log("scrolling");
-			navbar!.style.backgroundColor = "rgb(255, 255, 255)";
+			window.addEventListener("scroll", () => {
+
+			// tilføjer bare en transition så det føles smooth
+			navbar.style.transition = "background-color 0.4s ease-out";
+
+			// Tjekker om man er på
+			navbar.style.backgroundColor = scrollY > 0 ? "white" : "rgb(239, 246 ,255)";
 
 		});	
+		}
+		else if (navbar) {
+			navbar.style.backgroundColor = "white";	
+		}
+
+		
+
 	});
 
-	
 };
 
 

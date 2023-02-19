@@ -6,7 +6,7 @@
 	navScroll();
 </script>
 
-<div id="navbar" class=" flex h-16 w-full bg-blue-50 items-center justify-between fixed">
+<div id="navbar" class=" flex h-16 w-full items-center justify-between fixed">
 	<a href="/">
 		<img alt="Logo" src="/logo.png" height="64" width="64" />
 	</a>

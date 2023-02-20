@@ -8,39 +8,52 @@
 		
 	let avrPassStrength = averagePasswordStrength(data.passwords);
 
-	function showNewPass() {
-		var x = document.getElementById("newPassword");
-
-  		if (x.style.display === "none") {
-    		x.style.display = "block";
-  		} 
+	function toggleDiv(id: string) {
+		let div = document.getElementById(id)?.style.display;
+		if (div != "hidden") {
+			div = "hidden";
+		}
 		else {
-    		x.style.display = "none";
- 		}
+			div = "block";
+		}
 	};
 </script>
 
 
 <!--Main div-->
-<body class="flex justify-center border-2 border-green-400">
+<div class="flex justify-center">
 
+	<!--PopUp div-->
+	<div id="newPassword" class="z-10 absolute flex items-center justify-center h-[calc(100vh-4rem)] w-[100vw] bg-black bg-opacity-30 hidden">
 	
-	<div id="newPassword" class="z-10 absolute border-2 border-green-400 flex justify-center">
-		<h2>SUT PIK</h2>
+		<!--Menu div-->
+		<div class="h-[50vh] w-[50vw] bg-white rounded-md">
+
+			<!--Control bar-->
+			<div class="flex justify-start h-10 p-2 bg-slate-200">
+				<button on:click={() => toggleDiv("newPassword")} class="px-4 bg-red-400 rounded-lg">Close</button>
+			</div>
+
+			<!--Type bar-->
+			<div class="flex justify-start flex-col w-[10%] px-1.5 py-3 h-[calc(100%-2.5rem)] bg-main-100">
+				<button class="bg-main-200 shadow-md mb-3 h-8">Account</button>
+				<button class="bg-main-200 shadow-md mb-3 h-8">Credit card</button>
+			</div>
+		</div>
 	</div>
-	
-	
-	<!--dinfar div-->
+
+
+	<!--Dashboard div-->
 	<div class="grid grid-cols-2 m-2 gap-3 relative w-full">
 	
 	
 		<!--Generate password-->
-		<div class="border-2 border-slate-300 col-start-1 col-span-1 rounded-2xl px-4 shadow-lg">
+		<div class="border-2 border-slate-300 col-start-1 col-span-1 rounded-2xl px-2 shadow-lg">
 			<div class="">
 				<form action="?/generatePassword" method="POST" class=" py-2">
 					<Input id="website" label="Website" bgcolor="bg-slate-200"/>
 					<div class="">
-						<button type="submit" class="bg-main-300 hover:bg-main-200 rounded-md px-2 py-1">Generate new password</button>
+						<button type="submit" class="bg-main-200 hover:bg-main-100 rounded-lg px-2 py-1">Generate new password</button>
 					</div>
 				</form>
 			</div>
@@ -91,7 +104,8 @@
 	
 			<!--Control panel div-->
 			<div class="p-2 border-b-[1px] border-slate-200">
-				<button on:click={() => showNewPass()} class="px-1 py-1.5 bg-main-100 rounded-tl-2xl rounded-md">New Password</button>
+				<button on:click={() => toggleDiv("newPassword")} class="px-1 py-0.5 w-36 bg-main-200 hover:bg-opacity-70 rounded-lg">New Password</button>
+				<button on:click={() => toggleDiv("newPassword")} class="px-1 py-0.5 w-36 bg-blue-400 hover:bg-opacity-70 rounded-lg">Change Password</button>
 			</div>
 	
 			<div class="p-2 rounded-b-2xl">
@@ -120,6 +134,6 @@
 			</div>
 		</div>
 	</div>
-</body>
+</div>
 
 

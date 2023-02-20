@@ -103,3 +103,19 @@ export const averagePasswordStrength = (passwords: [website:string, password: st
 
 	return strength;
 };
+
+//Toggle if a div is shown or not, by providing the divs id and the display type it should be when shown.
+export const toggleDiv = (id: string, displayType: string) =>  {
+	const div = document.getElementById(id);
+
+	if (div) {
+		if (div.style.display != "none") {
+			console.log(div.style.display)
+			div.style.display = "none";
+		}
+		else {
+			console.log(div.style.display)
+			div.style.display = displayType;
+		}
+	}
+};

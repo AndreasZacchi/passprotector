@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { each } from "svelte/internal";
 	import type { ArrayCardinality } from "zod";
+    import Carousel from "../lib/components/Carousel.svelte"
 
 	type Subscription = {
 		name: string;
@@ -88,6 +89,13 @@
     let subscriptionModels: Array<Subscription> = [free, basis, premium]
     let reviews: Array<Review> = [mkbhd, ltt, wsj]
 
+    // Images for carousel
+    let images = [
+        {name: "Jeff Bezos", src: "/1.jpg", review: "I use PassProtector to keep all of my important passwords!"},
+        {name: "Mark Cuban", src: "/2.jpg", review: "All the maverick players use this password manager!"},
+        {name: "Matty", src: "/3.jpg", review: "10 out of 5 stars. Absolutely amazing. I use this password manager to keep my password for my thosaunds of child porno on my pc!"},
+    ]
+
 </script>
 
 <!--Main Div-->
@@ -169,7 +177,12 @@
         </div>
     </div>
 
-    
+    <!-- Carousel -->
+    <div>
+        <Carousel {images} />
+    </div>
+
+
     <!--Subscription models-->
     <div class="row-start-3 col-span-6 py-10 flex flex-col justify-center place-items-center">
 

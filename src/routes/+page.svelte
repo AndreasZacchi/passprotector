@@ -91,9 +91,9 @@
 
     // Images for carousel
     let images = [
-        {name: "Jeff Bezos", src: "/1.jpg", review: "I use PassProtector to keep all of my important passwords!"},
-        {name: "Mark Cuban", src: "/2.jpg", review: "All the maverick players use this password manager!"},
-        {name: "Matty", src: "/3.jpg", review: "10 out of 5 stars. Absolutely amazing. I use this password manager to keep my password for my thosaunds of child porno on my pc!"},
+        {name: "Jeff Bezos", src: "/1.jpg", review: '"I use PassProtector to keep all of my important passwords!"'},
+        {name: "Mark Cuban", src: "/2.jpg", review: '"All the maverick players use this password manager!"'},
+        {name: "Matty", src: "/3.jpg", review: '"10 out of 5 stars. Absolutely amazing. I use this password manager to keep my password for my thosaunds of child porno on my pc!"'},
     ]
 
 </script>
@@ -178,13 +178,13 @@
     </div>
 
     <!-- Carousel -->
-    <div>
+    <div class=" row-start-3 col-span-6">
         <Carousel {images} />
     </div>
 
 
     <!--Subscription models-->
-    <div class="row-start-3 col-span-6 py-10 flex flex-col justify-center place-items-center">
+    <div class="row-start-4 col-span-6 py-10 flex flex-col justify-center place-items-center">
 
         <h1 class="text-4xl font-helvetica text-main-300">PassProtector Plans</h1>
 
@@ -223,7 +223,7 @@
 
 
     <!--Military grade encryption-->
-    <div class="row-start-4 col-start-2 col-span-4 bg-orange-50 border-b-2 border-gray-200 flex flex-row">
+    <div class="row-start-5 col-start-2 col-span-4 bg-orange-50 border-b-2 border-gray-200 flex flex-row">
 
         <!--Military grade encryption text-->
         <div class="py-44 px-20 w-1/2">
@@ -241,7 +241,7 @@
 
 
     <!--Password Leak Detection-->
-    <div class="row-start-5 col-start-2 col-span-4 border-b-2 border-gray-200 flex flex-row-reverse">
+    <div class="row-start-6 col-start-2 col-span-4 border-b-2 border-gray-200 flex flex-row-reverse">
 
         <!--Password Leak Detection Text-->
         <div class="py-44 px-20 w-1/2">
@@ -259,7 +259,7 @@
 
 
     <!--Lorem Ipsum-->
-    <div class="row-start-6 col-start-2 col-span-4 bg-orange-50 border-b-2 border-gray-200 flex flex-row">
+    <div class="row-start-7 col-start-2 col-span-4 bg-orange-50 border-b-2 border-gray-200 flex flex-row">
 
         <!--Lorem Ipsum Text-->
         <div class="py-44 px-20 w-1/2">

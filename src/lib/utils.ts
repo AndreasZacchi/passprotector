@@ -62,7 +62,13 @@ export const navScroll = () => {
 	onMount(() => { 
 		const navbar = document.getElementById("navbar");
 		const currentPage = window.location.pathname;
-				
+		
+		if (navbar && scrollY > 0) {
+			navbar.style.transition = "background-color 0.35s ease-out";
+			navbar.style.backgroundColor = "white";
+			navbar.style.borderBottomWidth = "1px";
+		}
+
 		window.addEventListener("scroll", () => {
 			if (navbar) {
 				// tilføjer bare en transition så det føles smooth

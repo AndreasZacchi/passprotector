@@ -2,24 +2,34 @@
 	import { Record } from 'pocketbase';
 	export let data: { user: Record };
 	import { navScroll } from '../utils';
+	import { page } from '$app/stores';
 
 	navScroll();
 </script>
 
-<div id="navbar" class=" flex h-16 w-full items-center justify-between fixed px-4 ">
-	<a class="flex content-center hover:opacity-[0.85] transition ease-linear delay-75" href="/">
-		<img alt="Logo" src="/logo.png" height="64" width="64" />
-		<span class=" m-auto inline-block text-xl font-semibold">Passprotector</span>
-	</a>
-	<div class="flex items-center">
-		{#if data.user}
-			<a class="mr-3" href="/profile">Profile</a>
-			<form action="/auth/logout" method="POST" class="mr-4">
-				<button type="submit">Log out</button>
-			</form>
+<!--div class="w-full flex justify-center h-16"-->
+	<div id="navbar" class=" flex h-16 w-full justify-around items-center fixed">
+		{#if $page.url.pathname == "/auth/login" || $page.url.pathname == "/auth/register"}
+			<span></span>
 		{:else}
-			<a href="/auth/login" class=" text-lg mx-3 hover:text-main-300 rounded-xl py-1 px-2 transition ease-linear delay-75">Login</a>
-			<a href="/auth/register" class=" text-lg mx-3 hover:text-main-300 rounded-xl py-1 px-2 transition ease-linear delay-75">Register</a>
+			<a class="flex content-center hover:opacity-[0.85] transition ease-linear delay-75" href="/">
+				<img alt="Logo" src="/logo.png" height="64" width="64" />
+				<span class=" m-auto inline-block text-2xl font-semibold">PassProtector</span>
+			</a>
 		{/if}
+		<div class=" flex items-center">
+			{#if data.user}
+				<a class="mr-3" href="/profile">Profile</a>
+				<form action="/auth/logout" method="POST" class="mr-4">
+					<button type="submit">Log out</button>
+				</form>
+			{:else if $page.url.pathname == "/"}
+				<a href="/auth/login" class=" font-semibold text-lg mx-2 hover:text-main-400 rounded-xl py-1 px-2 transition ease-linear delay-75">Log in</a>
+				<a href="/auth/register" class=" border-2 border-main-500 text-main-500 hover:bg-main-400 hover:border-main-400 hover:text-blue-50 font-medium rounded-md text-lg mx-2 py-1 px-2 transition ease-linear delay-75">Get PassProtector</a>
+			{:else if $page.url.pathname == "/auth/login" || $page.url.pathname == "/auth/register"}
+				<span></span>
+			{/if}
+		</div>
+
 	</div>
-</div>
+<!--/div-->

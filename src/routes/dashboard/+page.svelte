@@ -3,12 +3,16 @@
 	import { getPassword, passwordStrength, averagePasswordStrength, toggleDiv } from '$lib/utils';
 	import { Record } from 'pocketbase';
 	import { each } from 'svelte/internal';
+	import { boolean } from 'zod';
 
 	export let data: { user: Record; passwords: [website: string, password: string] | undefined };
 		
 	let avrPassStrength = averagePasswordStrength(data.passwords);
 
 	let leakedPasswords: Array<string>;
+
+	let passwordFieldDark: boolean = false; 
+	
 </script>
 
 
@@ -23,13 +27,22 @@
 
 			<!--Control bar-->
 			<div class="flex justify-start h-10 p-2 bg-slate-200">
-				<button on:click={() => toggleDiv("newPassword", "flex")} class="px-4 bg-red-400 rounded-lg">Close</button>
+				<button on:click={() => toggleDiv("newPassword", "flex")} class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg">Close</button>
 			</div>
 
 			<!--Type bar-->
 			<div class="flex justify-start flex-col w-[10%] px-1.5 py-3 h-[calc(100%-2.5rem)] bg-main-100">
-				<button class="bg-main-200 shadow-md mb-3 h-8">Account</button>
-				<button class="bg-main-200 shadow-md mb-3 h-8">Credit card</button>
+				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Account</button>
+				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Credit card</button>
+			</div>
+
+			<div>
+				<form action="?/generatePassword" method="POST" class=" py-2">
+					<Input id="website" label="Website" bgcolor="bg-slate-200"/>
+					<div class="">
+						<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1">Generate new password</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -38,16 +51,10 @@
 	<!--Dashboard div-->
 	<div class="grid grid-cols-2 m-2 gap-3 relative w-full">
 	
-	
 		<!--Generate password-->
 		<div class="border-2 border-slate-300 col-start-1 col-span-1 rounded-2xl px-2 shadow-lg">
 			<div class="">
-				<form action="?/generatePassword" method="POST" class=" py-2">
-					<Input id="website" label="Website" bgcolor="bg-slate-200"/>
-					<div class="">
-						<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1">Generate new password</button>
-					</div>
-				</form>
+				<h1 class="text-lg font-helvetica p-4">Connected Devices</h1>
 			</div>
 	
 		</div>
@@ -90,7 +97,7 @@
 				{:else if avrPassStrength == "terrible"}
 					<p class="text-red-500 text-2xl font-bold font-helvetica">Terrible</p>
 				{:else}
-					<p class="text-green-700 text-2xl font-bold font-helvetica">Generate To Get Started</p>
+					<p class="text-green-700 text-xl font-bold font-helvetica">Generate To Get Started</p>
 				{/if}
 			</div>
 		</div>
@@ -115,12 +122,23 @@
 						</thead>
 						<tbody>
 							{#each data.passwords as [website, password]}
-								<tr>
-									<td>{website}</td>
-									<td>
-										<button on:click={() => navigator.clipboard.writeText(password)}>Copy password</button>
-									</td>
-								</tr>
+								{#if passwordFieldDark == false}
+									<tr class="bg-white">
+										<td>{website}</td>
+										<td>
+											<button on:click={() => navigator.clipboard.writeText(password)}>Copy password</button>
+										</td>
+									</tr>
+									{passwordFieldDark = true}
+								{:else}
+									<tr class="bg-slate-200">
+										<td>{website}</td>
+										<td>
+											<button on:click={() => navigator.clipboard.writeText(password)}>Copy password</button>
+										</td>
+									</tr>
+									{passwordFieldDark = false}
+								{/if}
 							{/each}
 						</tbody>
 					</table>

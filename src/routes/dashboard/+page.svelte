@@ -8,12 +8,19 @@
 	export let data: { user: Record; passwords: [website: string, password: string] | undefined };
 		
 	let avrPassStrength = averagePasswordStrength(data.passwords);
-
 	let leakedPasswords: Array<string>;
-
-	let passwordFieldDark: boolean = false; 
 	let active = false;
 	
+	let showPassword = false;
+	function shownPassword(password:string) {
+		if (showPassword == true){
+			return password
+		}
+		else {
+			return "********"
+		}
+	}
+
 </script>
 
 
@@ -120,16 +127,29 @@
 								<th class="text-left">Websites</th>
 								<th></th>
 								<th class="text-left">Passwords</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							{#each data.passwords as [website, password]}
-								<tr class="bg-white even:bg-slate-100">
+								<tr class="bg-white even:bg-gray-100">
 									<td class="w-8/12">{website}</td>
 									<td class="w-1/12">
+										<i class="fa-regular fa-trash-can text-lg text-red-600"></i>
+									</td>
+									<td>
+										<button on:click={() => showPassword=true} class="underline">Show Password</button>
+									</td>
+									{#if showPassword}
+										<td class="w-3/12">{password}</td>
+									{:else}
+										<td class="w-2/12">********</td>
+									{/if}
+<!-- 									<td class="w-1/12">
 										<button on:click={() => navigator.clipboard.writeText(password)} class="underline">Copy password</button>
 									</td>
-									<td class="w-3/12">{password}</td>
+									<td class="w-3/12">{password}</td> -->
+
 								</tr>
 							{/each}
 						</tbody>

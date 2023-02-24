@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
-	import { getPassword, passwordStrength, averagePasswordStrength, toggleDiv } from '$lib/utils';
+	import { getPassword, passwordStrength, averagePasswordStrength} from '$lib/utils';
 	import { Record } from 'pocketbase';
 	import { each } from 'svelte/internal';
 	import { boolean } from 'zod';
@@ -12,6 +12,7 @@
 	let leakedPasswords: Array<string>;
 
 	let passwordFieldDark: boolean = false; 
+	let active = false;
 	
 </script>
 
@@ -20,14 +21,14 @@
 <div class="flex justify-center">
 
 	<!--PopUp div-->
-	<div id="newPassword" class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-[100vw] bg-black bg-opacity-30">
+	<div id="newPassword" class:active="{active===true}" class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-[100vw] bg-black bg-opacity-30">
 	
 		<!--Menu div-->
 		<div class="h-[50vh] w-[50vw] bg-white rounded-md">
 
 			<!--Control bar-->
 			<div class="flex justify-start h-10 p-2 bg-slate-200">
-				<button on:click={() => toggleDiv("newPassword", "flex")} class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg">Close</button>
+				<button on:click={() => active=false} class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg">Close</button>
 			</div>
 
 			<!--Type bar-->
@@ -107,38 +108,29 @@
 	
 			<!--Control panel div-->
 			<div class="p-2 border-b-[1px] border-slate-200">
-				<button on:click={() => toggleDiv("newPassword", "flex")} class="px-1 py-0.5 w-36 bg-main-200 hover:bg-opacity-[0.85] rounded-lg">New Password</button>
-				<button on:click={() => toggleDiv("newPassword", "flex")} class="px-1 py-0.5 w-36 bg-blue-400 hover:bg-opacity-[0.85] rounded-lg">Change Password</button>
+				<button on:click={() => active=true} class="px-1 py-0.5 w-36 bg-main-200 hover:bg-opacity-[0.85] rounded-lg">New Password</button>
+				<button on:click={() => active=true} class="px-1 py-0.5 w-36 bg-blue-400 hover:bg-opacity-[0.85] rounded-lg">Change Password</button>
 			</div>
 	
 			<div class="p-2 rounded-b-2xl">
 				{#if data.passwords !== undefined}
-					<table>
+					<table class="w-full">
 						<thead>
 							<tr>
-								<th>Website</th>
-								<th>Password</th>
+								<th class="text-left">Websites</th>
+								<th></th>
+								<th class="text-left">Passwords</th>
 							</tr>
 						</thead>
 						<tbody>
 							{#each data.passwords as [website, password]}
-								{#if passwordFieldDark == false}
-									<tr class="bg-white">
-										<td>{website}</td>
-										<td>
-											<button on:click={() => navigator.clipboard.writeText(password)}>Copy password</button>
-										</td>
-									</tr>
-									{passwordFieldDark = true}
-								{:else}
-									<tr class="bg-slate-200">
-										<td>{website}</td>
-										<td>
-											<button on:click={() => navigator.clipboard.writeText(password)}>Copy password</button>
-										</td>
-									</tr>
-									{passwordFieldDark = false}
-								{/if}
+								<tr class="bg-white even:bg-slate-100">
+									<td class="w-8/12">{website}</td>
+									<td class="w-1/12">
+										<button on:click={() => navigator.clipboard.writeText(password)} class="underline">Copy password</button>
+									</td>
+									<td class="w-3/12">{password}</td>
+								</tr>
 							{/each}
 						</tbody>
 					</table>
@@ -150,4 +142,7 @@
 	</div>
 </div>
 
+<style>
+	.active{display: flex;}
+</style>
 

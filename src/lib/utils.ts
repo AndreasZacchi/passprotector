@@ -1,4 +1,4 @@
-import type { Admin, Record } from 'pocketbase';
+import { Admin, Record } from 'pocketbase';
 
 import * as CryptoJS from 'crypto-js';
 
@@ -82,7 +82,7 @@ export const averagePasswordStrength = (passwords: [website:string, password: st
 			sumPasswordStrength = sumPasswordStrength + passwordStrength(password);
 		});
 
-		avrPasswordStrength = sumPasswordLength*sumPasswordStrength/passwords.length;
+		avrPasswordStrength = (sumPasswordLength*sumPasswordStrength)/passwords.length;
 
 		if (avrPasswordStrength >= great){
 			strength = "great";
@@ -103,3 +103,4 @@ export const averagePasswordStrength = (passwords: [website:string, password: st
 
 	return strength;
 };
+

@@ -21,16 +21,6 @@
 			shownPasswords.push(false);
 		}
 	}
-	function togglePassword(index:number){
-		if (shownPasswords[index] == true){
-			shownPasswords[index] = false;
-		}
-		else {
-			shownPasswords[index] = true;
-		}
-	}
-	
-
 </script>
 
 
@@ -38,10 +28,9 @@
 <div class="flex justify-center">
 
 	<!--PopUp div-->
-	<div id="newPassword" class:active="{active===true}" class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-[100vw] bg-black bg-opacity-30">
-	
+	<div id="newPassword" class:active="{active===true}" class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30">
 		<!--Menu div-->
-		<div class="h-[50vh] w-[50vw] bg-white rounded-md">
+		<div class="z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
 
 			<!--Control bar-->
 			<div class="flex justify-start h-10 p-2 bg-slate-200">
@@ -58,7 +47,7 @@
 				<form action="?/generatePassword" method="POST" class=" py-2">
 					<Input id="website" label="Website" bgcolor="bg-slate-200"/>
 					<div class="">
-						<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1">Generate new password</button>
+							<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1">Generate new password</button>
 					</div>
 				</form>
 			</div>
@@ -141,29 +130,47 @@
 						<tbody>
 							{#each data.passwords as [website, password], i}
 								<tr class="bg-white even:bg-gray-100">
-									<td class="w-7/12">{website}</td>
+									<td class="w-7/12">	<a class="hover:underline hover:text-blue-600" href="https://www.{website}">{website}</a></td>
 
 									<!--Buttons that affect current password-->
 									<td class="w-3/12 flex justify-evenly align-middle">
 
 										<!--Trashcan-->
-										<i class="fa-regular fa-trash-can text-lg text-red-600"></i>
-										
+										<form action="?/deletePassword" method="POST" class="">
+											<input class="hidden"
+											
+											type = "text"
+												id = "website"
+												name="website"
+												value="{website}"
+												/>
+											<div class="">
+												<button type="submit" class="">
+													<i class="fa-regular fa-trash-can text-lg text-red-600"></i>
+												</button>
+											</div>
+										</form>
+
 										<!--Eye-->
 										{#if shownPasswords[i]}
-											<button on:click={() => shownPassword = i} on:click={() => togglePassword(i)}>
+											<button on:click={() => shownPassword = i} on:click={() => shownPasswords[i]=!shownPasswords[i]}>
 												<i class="fa-solid fa-eye-slash text-lg mx-[-1.15px]"></i>
 											</button>
 										{:else}
-											<button on:click={() => shownPassword = i} on:click={() => togglePassword(i)}>
+											<button on:click={() => shownPassword = i} on:click={() => shownPasswords[i]=!shownPasswords[i]}>
 												<i class="fa-solid fa-eye text-lg"></i>
 											</button>
 										{/if}
+
 										<!--Change password-->
-										<i class="fa-solid fa-arrows-rotate text-lg text-blue-500"></i>
+										<button>
+											<i class="fa-solid fa-arrows-rotate text-lg text-blue-500 hover:rotate-45 duration-300"></i>
+										</button>
 
 										<!--Copy password-->
-										<button on:click={() => navigator.clipboard.writeText(password)} class="w-2/12"><i class="fa-regular fa-clipboard text-lg"></i></button>
+										<button on:click={() => navigator.clipboard.writeText(password)} class="w-2/12">
+											<i class="fa-regular fa-clipboard text-lg"></i>
+										</button>
 									</td>
 
 									<!--Determines whether to show password or not-->

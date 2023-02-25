@@ -42,5 +42,19 @@ export const actions: Actions = {
 			console.log('Error: ', err);
 			throw error(500, 'Something went wrong');
 		}
+	},
+	deletePassword: async ({ locals, request}) => {
+		if (!locals.pb.authStore.isValid) {
+			throw redirect(302, '/auth/login');
+		}
+		const body = Object.fromEntries(await request.formData());
+		try { 
+			const record = await locals.pb.collection('passwords').getFirstListItem('website="' + body.website + '" && user="' + locals.user.id + '"' );			
+			const result = await locals.pb.collection("passwords").delete(record.id)
+
+		} catch (err) {
+			console.log('Error: ', err);
+			throw error(500, 'Something went wrong');
+		}
 	}
 };

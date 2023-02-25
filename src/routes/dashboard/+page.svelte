@@ -11,15 +11,25 @@
 	let leakedPasswords: Array<string>;
 	let active = false;
 	
-	let showPassword = false;
-	function shownPassword(password:string) {
-		if (showPassword == true){
-			return password
-		}
-		else {
-			return "********"
+
+	//Show password variables and functions
+	let shownPassword: number;
+	let shownPasswords: Array<boolean> = [];
+
+	if (data.passwords != undefined) {
+		for (let index = 0; index < data.passwords?.length; index++) {
+			shownPasswords.push(false);
 		}
 	}
+	function togglePassword(index:number){
+		if (shownPasswords[index] == true){
+			shownPasswords[index] = false;
+		}
+		else {
+			shownPasswords[index] = true;
+		}
+	}
+	
 
 </script>
 
@@ -116,7 +126,6 @@
 			<!--Control panel div-->
 			<div class="p-2 border-b-[1px] border-slate-200">
 				<button on:click={() => active=true} class="px-1 py-0.5 w-36 bg-main-200 hover:bg-opacity-[0.85] rounded-lg">New Password</button>
-				<button on:click={() => active=true} class="px-1 py-0.5 w-36 bg-blue-400 hover:bg-opacity-[0.85] rounded-lg">Change Password</button>
 			</div>
 	
 			<div class="p-2 rounded-b-2xl">
@@ -127,29 +136,44 @@
 								<th class="text-left">Websites</th>
 								<th></th>
 								<th class="text-left">Passwords</th>
-								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							{#each data.passwords as [website, password]}
+							{#each data.passwords as [website, password], i}
 								<tr class="bg-white even:bg-gray-100">
-									<td class="w-8/12">{website}</td>
-									<td class="w-1/12">
+									<td class="w-7/12">{website}</td>
+
+									<!--Buttons that affect current password-->
+									<td class="w-3/12 flex justify-evenly align-middle">
+
+										<!--Trashcan-->
 										<i class="fa-regular fa-trash-can text-lg text-red-600"></i>
+										
+										<!--Eye-->
+										{#if shownPasswords[i]}
+											<button on:click={() => shownPassword = i} on:click={() => togglePassword(i)}>
+												<i class="fa-solid fa-eye-slash text-lg mx-[-1.15px]"></i>
+											</button>
+										{:else}
+											<button on:click={() => shownPassword = i} on:click={() => togglePassword(i)}>
+												<i class="fa-solid fa-eye text-lg"></i>
+											</button>
+										{/if}
+										<!--Change password-->
+										<i class="fa-solid fa-arrows-rotate text-lg text-blue-500"></i>
+
+										<!--Copy password-->
+										<button on:click={() => navigator.clipboard.writeText(password)} class="w-2/12"><i class="fa-regular fa-clipboard text-lg"></i></button>
 									</td>
-									<td>
-										<button on:click={() => showPassword=true} class="underline">Show Password</button>
-									</td>
-									{#if showPassword}
-										<td class="w-3/12">{password}</td>
+
+									<!--Determines whether to show password or not-->
+									{#if shownPasswords[i]}
+										<td><button on:click={() => navigator.clipboard.writeText(password)} class="w-2/12 hover:underline">{password}</button></td>
+										<!-- {eyeType = "fa-solid fa-eye-slash text-green-600"} -->
 									{:else}
 										<td class="w-2/12">********</td>
+										<!-- {eyeType = "fa-regular fa-eye text-gray-400"} -->
 									{/if}
-<!-- 									<td class="w-1/12">
-										<button on:click={() => navigator.clipboard.writeText(password)} class="underline">Copy password</button>
-									</td>
-									<td class="w-3/12">{password}</td> -->
-
 								</tr>
 							{/each}
 						</tbody>

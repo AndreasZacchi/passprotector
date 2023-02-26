@@ -1,17 +1,27 @@
 import { Admin, Record } from 'pocketbase';
 
 import * as CryptoJS from 'crypto-js';
+import zxcvbn from 'zxcvbn-typescript';
 
 export const serializeNonPOJOS = (obj: Record | Admin | null) => {
 	return structuredClone(obj);
 };
 
-export const generatePassword = (secret: string) => {
-	var chars = [
-		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-		'0123456789',
-		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	];
+export const generatePassword = (secret: string, specialChars: boolean) => {
+	let chars: string[];
+	if (specialChars) {
+		chars = [
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!&$%#',
+			'0123456789',
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!&$%#'
+		];
+	} else {
+		chars = [
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+			'0123456789',
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+		];
+	}
 	function randInt(this_max: number) {
 		let umax = Math.pow(2, 32);
 		let max = umax - (umax % this_max);
@@ -23,7 +33,7 @@ export const generatePassword = (secret: string) => {
 	}
 
 	let password = [
-		[9, 4, 3]
+		[11, 6, 7]
 			.map(function (len, i) {
 				return new Array(len)
 					.fill(chars[i])
@@ -60,47 +70,20 @@ export const passwordStrength = (password: string) => {
 	return password.length;
 };
 
-export const averagePasswordStrength = (passwords: [website:string, password: string] | undefined) => {
-
-	//Password Strengths
-	let great = 20;
-	let good = 15;
-	let bad = 10;
-	//Everything under bad is terrible
-
-	let strength: string;
-
-	let sumPasswordLength = 0;
-	let sumPasswordStrength = 0;
-	let avrPasswordStrength: number;
-
-
-	if (passwords != undefined){
-
-		passwords.forEach(password => {
-			sumPasswordLength = sumPasswordLength + password.length;
-			sumPasswordStrength = sumPasswordStrength + passwordStrength(password);
+export const averagePasswordStrength = (
+	passwords: [website: string, password: string] | undefined
+) => {
+	// Set strength to -1 so we know there are no passwords.
+	let strength = -1;
+	if (passwords) {
+		// Reset strength since there is atleast 1 password
+		strength = 0;
+		// Loop through each password and add the score
+		passwords?.forEach((e) => {
+			strength += zxcvbn(e[1]).score;
 		});
-
-		avrPasswordStrength = (sumPasswordLength*sumPasswordStrength)/passwords.length;
-
-		if (avrPasswordStrength >= great){
-			strength = "great";
-		}
-		else if (avrPasswordStrength >= good) {
-			strength = "good";
-		}
-		else if (avrPasswordStrength >= bad) {
-			strength = "bad";
-		}
-		else {
-			strength = "terrible";
-		}
+		// Divide by amount of passwords to get average strength
+		strength /= passwords?.length;
 	}
-	else {
-		strength = "none";
-	}
-
 	return strength;
 };
-

@@ -34,7 +34,7 @@ export const actions: Actions = {
 			const data = {
 				user: locals.user.id,
 				website: body.website,
-				password: generatePassword(SECRET)
+				password: generatePassword(SECRET, false)
 			};
 
 			const record = await locals.pb.collection('passwords').create(data);
@@ -43,15 +43,16 @@ export const actions: Actions = {
 			throw error(500, 'Something went wrong');
 		}
 	},
-	deletePassword: async ({ locals, request}) => {
+	deletePassword: async ({ locals, request }) => {
 		if (!locals.pb.authStore.isValid) {
 			throw redirect(302, '/auth/login');
 		}
 		const body = Object.fromEntries(await request.formData());
-		try { 
-			const record = await locals.pb.collection('passwords').getFirstListItem('website="' + body.website + '" && user="' + locals.user.id + '"' );			
-			const result = await locals.pb.collection("passwords").delete(record.id)
-
+		try {
+			const record = await locals.pb
+				.collection('passwords')
+				.getFirstListItem('website="' + body.website + '" && user="' + locals.user.id + '"');
+			const result = await locals.pb.collection('passwords').delete(record.id);
 		} catch (err) {
 			console.log('Error: ', err);
 			throw error(500, 'Something went wrong');

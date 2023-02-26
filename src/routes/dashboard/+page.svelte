@@ -1,16 +1,15 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
-	import { getPassword, passwordStrength, averagePasswordStrength} from '$lib/utils';
+	import { getPassword, passwordStrength, averagePasswordStrength } from '$lib/utils';
 	import { Record } from 'pocketbase';
 	import { each } from 'svelte/internal';
 	import { boolean } from 'zod';
 
 	export let data: { user: Record; passwords: [website: string, password: string] | undefined };
-		
+
 	let avrPassStrength = averagePasswordStrength(data.passwords);
 	let leakedPasswords: Array<string>;
 	let active = false;
-	
 
 	//Show password variables and functions
 	let shownPassword: number;
@@ -23,159 +22,183 @@
 	}
 </script>
 
-
 <!--Main div-->
 <div class="flex justify-center">
-
 	<!--PopUp div-->
-	<div id="newPassword" class:active="{active===true}" class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30">
+	<div
+		id="newPassword"
+		class:active={active === true}
+		class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30"
+	>
 		<!--Menu div-->
 		<div class="z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
-
 			<!--Control bar-->
 			<div class="flex justify-start h-10 p-2 bg-slate-200">
-				<button on:click={() => active=false} class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg">Close</button>
+				<button
+					on:click={() => (active = false)}
+					class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg">Close</button
+				>
 			</div>
 
 			<!--Type bar-->
-			<div class="flex justify-start flex-col w-[10%] px-1.5 py-3 h-[calc(100%-2.5rem)] bg-main-100">
+			<div
+				class="flex justify-start flex-col w-[10%] px-1.5 py-3 h-[calc(100%-2.5rem)] bg-main-100"
+			>
 				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Account</button>
 				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Credit card</button>
 			</div>
 
 			<div>
 				<form action="?/generatePassword" method="POST" class=" py-2">
-					<Input id="website" label="Website" bgcolor="bg-slate-200"/>
+					<Input id="website" label="Website" />
 					<div class="">
-							<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1">Generate new password</button>
+						<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1"
+							>Generate new password</button
+						>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 
-
 	<!--Dashboard div-->
 	<div class="grid grid-cols-2 m-2 gap-3 relative w-full">
-	
 		<!--Generate password-->
 		<div class="border-2 border-slate-300 col-start-1 col-span-1 rounded-2xl px-2 shadow-lg">
 			<div class="">
 				<h1 class="text-lg font-helvetica p-4">Connected Devices</h1>
 			</div>
-	
 		</div>
-	
-	
+
 		<!--Statistics-->
 		<div class="border-2 border-slate-300 col-start-2 rounded-2xl shadow-lg grid grid-cols-3 p-4">
-	
 			<!--Stored Paswords-->
 			<div class="flex flex-col place-items-center">
 				<h1 class="mb-5 font-helvetica text-lg">Protected Passwords</h1>
 				<p class="text-green-700 text-2xl font-bold font-helvetica">
-					{#if data.passwords == undefined} 
+					{#if data.passwords == undefined}
 						0
 					{:else}
 						{data.passwords?.length}
 					{/if}
 				</p>
 			</div>
-	
+
 			<!--Leaked Passwords-->
 			<div class="flex flex-col place-items-center">
 				<h1 class="mb-5 font-helvetica text-lg">Leaked Passwords</h1>
-				{#if leakedPasswords == undefined} 
+				{#if leakedPasswords == undefined}
 					<p class="text-green-700 text-2xl font-bold font-helvetica">0</p>
 				{:else}
 					<p class="text-red-700 text-2xl font-bold font-helvetica">{leakedPasswords.length}</p>
 				{/if}
 			</div>
-			
+
 			<!--Average password strength-->
 			<div class="flex flex-col place-items-center">
 				<h1 class="mb-5 font-helvetica text-lg">Average Password Strength</h1>
-				{#if avrPassStrength == "great"}
-					<p class="text-green-500 text-2xl font-bold font-helvetica">GREAT</p>
-				{:else if avrPassStrength == "good"}
-					<p class="text-green-700 text-2xl font-bold font-helvetica">Good</p>
-				{:else if avrPassStrength == "bad"}
-					<p class="text-red-800 text-2xl font-bold font-helvetica">Bad</p>
-				{:else if avrPassStrength == "terrible"}
-					<p class="text-red-500 text-2xl font-bold font-helvetica">Terrible</p>
-				{:else}
+				{#if avrPassStrength == -1}
 					<p class="text-green-700 text-xl font-bold font-helvetica">Generate To Get Started</p>
+				{:else if avrPassStrength >= 3.8}
+					<p class="text-green-500 text-2xl font-bold font-helvetica">GREAT</p>
+				{:else if avrPassStrength >= 3}
+					<p class="text-green-700 text-2xl font-bold font-helvetica">Good</p>
+				{:else if avrPassStrength >= 2}
+					<p class="text-yellow-500 text-2xl font-bold font-helvetica">Ok</p>
+				{:else if avrPassStrength > 1}
+					<p class="text-red-800 text-2xl font-bold font-helvetica">Bad</p>
+				{:else if avrPassStrength <= 1}
+					<p class="text-red-500 text-2xl font-bold font-helvetica">Terrible</p>
 				{/if}
 			</div>
 		</div>
-	
+
 		<!--Password list-->
 		<div class="border-2 border-slate-300 row-start-2 col-span-2 rounded-2xl shadow-lg">
-	
 			<!--Control panel div-->
 			<div class="p-2 border-b-[1px] border-slate-200">
-				<button on:click={() => active=true} class="px-1 py-0.5 w-36 bg-main-200 hover:bg-opacity-[0.85] rounded-lg">New Password</button>
+				<button
+					on:click={() => (active = true)}
+					class="px-1 py-0.5 w-36 bg-main-200 hover:bg-opacity-[0.85] rounded-lg"
+					>New Password</button
+				>
 			</div>
-	
+
 			<div class="p-2 rounded-b-2xl">
 				{#if data.passwords !== undefined}
 					<table class="w-full">
 						<thead>
 							<tr>
 								<th class="text-left">Websites</th>
-								<th></th>
+								<th />
 								<th class="text-left">Passwords</th>
 							</tr>
 						</thead>
 						<tbody>
 							{#each data.passwords as [website, password], i}
 								<tr class="bg-white even:bg-gray-100">
-									<td class="w-7/12">	<a class="hover:underline hover:text-blue-600" href="https://www.{website}">{website}</a></td>
+									<td class="w-7/12">
+										<a class="hover:underline hover:text-blue-600" href="https://www.{website}"
+											>{website}</a
+										></td
+									>
 
 									<!--Buttons that affect current password-->
 									<td class="w-3/12 flex justify-evenly align-middle">
-
 										<!--Trashcan-->
 										<form action="?/deletePassword" method="POST" class="">
-											<input class="hidden"
-											
-											type = "text"
-												id = "website"
+											<input
+												class="hidden"
+												type="text"
+												id="website"
 												name="website"
-												value="{website}"
-												/>
+												value={website}
+											/>
 											<div class="">
 												<button type="submit" class="">
-													<i class="fa-regular fa-trash-can text-lg text-red-600"></i>
+													<i class="fa-regular fa-trash-can text-lg text-red-600" />
 												</button>
 											</div>
 										</form>
 
 										<!--Eye-->
 										{#if shownPasswords[i]}
-											<button on:click={() => shownPassword = i} on:click={() => shownPasswords[i]=!shownPasswords[i]}>
-												<i class="fa-solid fa-eye-slash text-lg mx-[-1.15px]"></i>
+											<button
+												on:click={() => (shownPassword = i)}
+												on:click={() => (shownPasswords[i] = !shownPasswords[i])}
+											>
+												<i class="fa-solid fa-eye-slash text-lg mx-[-1.15px]" />
 											</button>
 										{:else}
-											<button on:click={() => shownPassword = i} on:click={() => shownPasswords[i]=!shownPasswords[i]}>
-												<i class="fa-solid fa-eye text-lg"></i>
+											<button
+												on:click={() => (shownPassword = i)}
+												on:click={() => (shownPasswords[i] = !shownPasswords[i])}
+											>
+												<i class="fa-solid fa-eye text-lg" />
 											</button>
 										{/if}
 
 										<!--Change password-->
 										<button>
-											<i class="fa-solid fa-arrows-rotate text-lg text-blue-500 hover:rotate-45 duration-300"></i>
+											<i
+												class="fa-solid fa-arrows-rotate text-lg text-blue-500 hover:rotate-45 duration-300"
+											/>
 										</button>
 
 										<!--Copy password-->
 										<button on:click={() => navigator.clipboard.writeText(password)} class="w-2/12">
-											<i class="fa-regular fa-clipboard text-lg"></i>
+											<i class="fa-regular fa-clipboard text-lg" />
 										</button>
 									</td>
 
 									<!--Determines whether to show password or not-->
 									{#if shownPasswords[i]}
-										<td><button on:click={() => navigator.clipboard.writeText(password)} class="w-2/12 hover:underline">{password}</button></td>
+										<td
+											><button
+												on:click={() => navigator.clipboard.writeText(password)}
+												class="w-2/12 hover:underline">{password}</button
+											></td
+										>
 										<!-- {eyeType = "fa-solid fa-eye-slash text-green-600"} -->
 									{:else}
 										<td class="w-2/12">********</td>
@@ -194,6 +217,7 @@
 </div>
 
 <style>
-	.active{display: flex;}
+	.active {
+		display: flex;
+	}
 </style>
-

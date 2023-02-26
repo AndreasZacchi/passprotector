@@ -30,8 +30,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"crypto-js": "^4.1.1",
 		"pocketbase": "^0.10.1",
 		"Zod": "npm:zod@^3.20.6",
-		"crypto-js": "^4.1.1"
+		"zxcvbn-typescript": "^5.0.1"
 	}
 }

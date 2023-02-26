@@ -23,40 +23,40 @@
 </script>
 
 <!--Main div-->
-<div class="flex justify-center">
+<div class="relative flex justify-center border-2 border-purple-400">
 	<!--PopUp div-->
 	<div
 		id="newPassword"
 		class:active={active === true}
-		class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30"
-	>
+		class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30 border-2 border-green-500">
+
 		<!--Menu div-->
-		<div class="z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
+		<div class="flex flex-col z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
 			<!--Control bar-->
-			<div class="flex justify-start h-10 p-2 bg-slate-200">
-				<button
-					on:click={() => (active = false)}
-					class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg">Close</button
-				>
+			<div class="h-10 p-2 bg-slate-200">
+				<button	on:click={() => (active = false)} class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg">
+					Close
+				</button>
 			</div>
+			<!--Popup div content-->
+			<div class="flex flex-row h-full w-full">
+				<!--Type bar-->
+				<div class="flex flex-col justify-start w-[15%] h-full px-1.5 py-3 bg-main-100">
+					<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Account</button>
+					<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Credit card</button>
+				</div>
 
-			<!--Type bar-->
-			<div
-				class="flex justify-start flex-col w-[10%] px-1.5 py-3 h-[calc(100%-2.5rem)] bg-main-100"
-			>
-				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Account</button>
-				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Credit card</button>
-			</div>
-
-			<div>
-				<form action="?/generatePassword" method="POST" class=" py-2">
-					<Input id="website" label="Website" />
-					<div class="">
-						<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1"
-							>Generate new password</button
-						>
-					</div>
-				</form>
+				<!--Password generator-->
+				<div class="w-full h-full flex justify-start border-2 border-blue-500">
+					<form action="?/generatePassword" method="POST" class="">
+						<Input id="website" label="Website" />
+						<div class="">
+							<button type="submit" class="bg-main-200 hover:bg-opacity-[0.85] rounded-lg px-2 py-1"
+								>Generate new password</button
+							>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

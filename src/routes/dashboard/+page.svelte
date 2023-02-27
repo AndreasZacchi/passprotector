@@ -23,12 +23,12 @@
 </script>
 
 <!--Main div-->
-<div class="relative flex justify-center border-2 border-purple-400">
+<div class="relative flex justify-center">
 	<!--PopUp div-->
 	<div
 		id="newPassword"
 		class:active={active === true}
-		class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30 border-2 border-green-500">
+		class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30">
 
 		<!--Menu div-->
 		<div class="flex flex-col z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
@@ -62,60 +62,74 @@
 	</div>
 
 	<!--Dashboard div-->
-	<div class="grid grid-cols-2 m-2 gap-3 relative w-full">
-		<!--Generate password-->
-		<div class="border-2 border-slate-300 col-start-1 col-span-1 rounded-2xl px-2 shadow-lg">
-			<div class="">
-				<h1 class="text-lg font-helvetica p-4">Connected Devices</h1>
+	<div class="flex flex-col w-full p-4">
+		<!--Stats div-->
+		<div class="flex flex-row h-[25vh]">
+			<!--Suggestions div-->
+			<div class="border-2 border-slate-300 rounded-2xl p-4 shadow-lg flex flex-col w-1/2 mr-1.5">
+				<h1 class="text-lg font-helvetica">Suggestions</h1>
+				<div class="bg-slate-200 hover:shadow-inner w-full rounded-lg p-2 h-full overflow-auto flex relative flex-col">
+					<h1 class="">tester</h1>
+					<h2 class="">tester</h2>
+					<h3 class="">tester</h3>
+					<h4 class="">tester</h4>
+					<h5 class="">tester</h5>
+					<h6 class="">tester</h6>
+					<h7 class="">tester</h7>
+					<h8 class="">tester</h8>
+					<h9 class="">tester</h9>
+					<h10 class="">tester</h10>
+				</div>
 			</div>
-		</div>
 
-		<!--Statistics-->
-		<div class="border-2 border-slate-300 col-start-2 rounded-2xl shadow-lg grid grid-cols-3 p-4">
-			<!--Stored Paswords-->
-			<div class="flex flex-col place-items-center">
-				<h1 class="mb-5 font-helvetica text-lg">Protected Passwords</h1>
-				<p class="text-green-700 text-2xl font-bold font-helvetica">
-					{#if data.passwords == undefined}
-						0
+			<!--Statistics-->
+			<div class="border-2 border-slate-300 w-1/2 rounded-2xl shadow-lg grid grid-cols-3 p-4 ml-1.5 text-center">
+				<!--Stored Paswords-->
+				<div class="flex flex-col place-items-center">
+					<h1 class="mb-5 font-helvetica text-lg">Protected Passwords</h1>
+					<p class="text-green-700 text-2xl font-bold font-helvetica">
+						{#if data.passwords == undefined}
+							0
+						{:else}
+							{data.passwords?.length}
+						{/if}
+					</p>
+				</div>
+
+				<!--Leaked Passwords-->
+				<div class="flex flex-col place-items-center">
+					<h1 class="mb-5 font-helvetica text-lg">Leaked Passwords</h1>
+					{#if leakedPasswords == undefined}
+						<p class="text-green-700 text-2xl font-bold font-helvetica">0</p>
 					{:else}
-						{data.passwords?.length}
+						<p class="text-red-700 text-2xl font-bold font-helvetica">{leakedPasswords.length}</p>
 					{/if}
-				</p>
-			</div>
+				</div>
 
-			<!--Leaked Passwords-->
-			<div class="flex flex-col place-items-center">
-				<h1 class="mb-5 font-helvetica text-lg">Leaked Passwords</h1>
-				{#if leakedPasswords == undefined}
-					<p class="text-green-700 text-2xl font-bold font-helvetica">0</p>
-				{:else}
-					<p class="text-red-700 text-2xl font-bold font-helvetica">{leakedPasswords.length}</p>
-				{/if}
-			</div>
-
-			<!--Average password strength-->
-			<div class="flex flex-col place-items-center">
-				<h1 class="mb-5 font-helvetica text-lg">Average Password Strength</h1>
-				{#if avrPassStrength == -1}
-					<p class="text-green-700 text-xl font-bold font-helvetica">Generate To Get Started</p>
-				{:else if avrPassStrength >= 3.8}
-					<p class="text-green-500 text-2xl font-bold font-helvetica">GREAT</p>
-				{:else if avrPassStrength >= 3}
-					<p class="text-green-700 text-2xl font-bold font-helvetica">Good</p>
-				{:else if avrPassStrength >= 2}
-					<p class="text-yellow-500 text-2xl font-bold font-helvetica">Ok</p>
-				{:else if avrPassStrength > 1}
-					<p class="text-red-800 text-2xl font-bold font-helvetica">Bad</p>
-				{:else if avrPassStrength <= 1}
-					<p class="text-red-500 text-2xl font-bold font-helvetica">Terrible</p>
-				{/if}
+				<!--Average password strength-->
+				<div class="flex flex-col place-items-center">
+					<h1 class="mb-5 font-helvetica text-lg">Average Password Strength</h1>
+					{#if avrPassStrength == -1}
+						<p class="text-green-700 text-xl font-bold font-helvetica">Generate To Get Started</p>
+					{:else if avrPassStrength >= 3.8}
+						<p class="text-green-500 text-2xl font-bold font-helvetica">GREAT</p>
+					{:else if avrPassStrength >= 3}
+						<p class="text-green-700 text-2xl font-bold font-helvetica">Good</p>
+					{:else if avrPassStrength >= 2}
+						<p class="text-yellow-500 text-2xl font-bold font-helvetica">Ok</p>
+					{:else if avrPassStrength > 1}
+						<p class="text-red-800 text-2xl font-bold font-helvetica">Bad</p>
+					{:else if avrPassStrength <= 1}
+						<p class="text-red-500 text-2xl font-bold font-helvetica">Terrible</p>
+					{/if}
+				</div>
 			</div>
 		</div>
+		
 
-		<!--Password list-->
-		<div class="border-2 border-slate-300 row-start-2 col-span-2 rounded-2xl shadow-lg">
-			<!--Control panel div-->
+		<!--Password list div-->
+		<div class="border-2 border-slate-300 mt-3 rounded-2xl">
+			<!--Control bar div-->
 			<div class="p-2 border-b-[1px] border-slate-200">
 				<button
 					on:click={() => (active = true)}
@@ -129,22 +143,22 @@
 					<table class="w-full">
 						<thead>
 							<tr>
-								<th class="text-left">Websites</th>
-								<th />
-								<th class="text-left">Passwords</th>
+								<th class="w-5/12 text-left">Websites</th>
+								<th class="w-3/12" />
+								<th class="w-4/12 text-left">Passwords</th>
 							</tr>
 						</thead>
 						<tbody>
 							{#each data.passwords as [website, password], i}
 								<tr class="bg-white even:bg-gray-100">
-									<td class="w-7/12">
+									<td>
 										<a class="hover:underline hover:text-blue-600" href="https://www.{website}"
 											>{website}</a
 										></td
 									>
 
 									<!--Buttons that affect current password-->
-									<td class="w-3/12 flex justify-evenly align-middle">
+									<td class="flex justify-end pr-5">
 										<!--Trashcan-->
 										<form action="?/deletePassword" method="POST" class="">
 											<input
@@ -167,14 +181,14 @@
 												on:click={() => (shownPassword = i)}
 												on:click={() => (shownPasswords[i] = !shownPasswords[i])}
 											>
-												<i class="fa-solid fa-eye-slash text-lg mx-[-1.15px]" />
+												<i class="fa-solid fa-eye-slash text-lg mx-[6.88px]" />
 											</button>
 										{:else}
 											<button
 												on:click={() => (shownPassword = i)}
 												on:click={() => (shownPasswords[i] = !shownPasswords[i])}
 											>
-												<i class="fa-solid fa-eye text-lg" />
+												<i class="fa-solid fa-eye text-lg mx-2" />
 											</button>
 										{/if}
 
@@ -186,8 +200,8 @@
 										</button>
 
 										<!--Copy password-->
-										<button on:click={() => navigator.clipboard.writeText(password)} class="w-2/12">
-											<i class="fa-regular fa-clipboard text-lg" />
+										<button on:click={() => navigator.clipboard.writeText(password)}>
+											<i class="fa-regular fa-clipboard text-lg ml-2" />
 										</button>
 									</td>
 
@@ -196,12 +210,12 @@
 										<td
 											><button
 												on:click={() => navigator.clipboard.writeText(password)}
-												class="w-2/12 hover:underline">{password}</button
+												class="hover:underline">{password}</button
 											></td
 										>
 										<!-- {eyeType = "fa-solid fa-eye-slash text-green-600"} -->
 									{:else}
-										<td class="w-2/12">********</td>
+										<td>********</td>
 										<!-- {eyeType = "fa-regular fa-eye text-gray-400"} -->
 									{/if}
 								</tr>

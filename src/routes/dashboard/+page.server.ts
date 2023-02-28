@@ -30,6 +30,7 @@ export const actions: Actions = {
 			throw redirect(302, '/auth/login');
 		}
 		const body = Object.fromEntries(await request.formData());
+
 		try {
 			const data = {
 				user: locals.user.id,

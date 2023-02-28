@@ -67,7 +67,7 @@ export const getPassword = (password: string, secret: string) => {
 };
 
 export const passwordStrength = (password: string) => {
-	return password.length;
+	return zxcvbn(password).score;
 };
 
 export const averagePasswordStrength = (

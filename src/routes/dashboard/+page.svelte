@@ -14,10 +14,12 @@
 
 	let avrPassStrength = averagePasswordStrength(data.passwords);
 	let leakedPasswords: Array<string>;
+	let suggestions: { suggestion: string; passwordIndex: number | undefined };
+
 	let active = false;
 
 	//Password strength colors
-	let greatPassColor = 'green-500';
+	let greatPassColor = 'FF5733';
 	let goodPassColor = 'green-700';
 	let okPassColor = 'yellow-500';
 	let badPassColor = 'red-800';
@@ -151,24 +153,22 @@
 	<!--Dashboard div-->
 	<div class="flex flex-col w-full p-4">
 		<!--Stats div-->
-		<div class="flex flex-row h-[25vh]">
+		<div class="flex flex-row h-40">
 			<!--Suggestions div-->
 			<div class="border-2 border-slate-300 rounded-2xl p-4 shadow-lg flex flex-col w-1/2 mr-1.5">
-				<h1 class="text-lg font-helvetica">Suggestions</h1>
-				<div
+				<label for="suggestions" class="text-lg font-helvetica">Suggestions</label>
+				<ul
+					id="suggestions"
 					class="bg-slate-200 hover:shadow-inner w-full rounded-lg px-2 py-1 h-full overflow-auto flex relative flex-col"
 				>
-					<h1 class="">tester</h1>
-					<h2 class="">tester</h2>
-					<h3 class="">tester</h3>
-					<h4 class="">tester</h4>
-					<h5 class="">tester</h5>
-					<h6 class="">tester</h6>
-					<h7 class="">tester</h7>
-					<h8 class="">tester</h8>
-					<h9 class="">tester</h9>
-					<h10 class="">tester</h10>
-				</div>
+					{#if suggestions != undefined}
+						{#each suggestions as [suggestion, passwordIndex]}
+							<li class="text-red-500">{suggestion}</li>
+						{/each}
+					{:else}
+						<li>No suggestions at the moment</li>
+					{/if}
+				</ul>
 			</div>
 
 			<!--Statistics-->
@@ -178,7 +178,7 @@
 				<!--Stored Paswords-->
 				<div class="flex flex-col place-items-center">
 					<h1 class="mb-5 font-helvetica text-lg">Protected Passwords</h1>
-					<p class="text-green-700 text-2xl font-bold font-helvetica">
+					<p class="text-green-700 text-3xl font-bold font-helvetica">
 						{#if data.passwords == undefined}
 							0
 						{:else}
@@ -191,9 +191,9 @@
 				<div class="flex flex-col place-items-center">
 					<h1 class="mb-5 font-helvetica text-lg">Leaked Passwords</h1>
 					{#if leakedPasswords == undefined}
-						<p class="text-green-700 text-2xl font-bold font-helvetica">0</p>
+						<p class="text-green-700 text-3xl font-bold font-helvetica">0</p>
 					{:else}
-						<p class="text-red-700 text-2xl font-bold font-helvetica">{leakedPasswords.length}</p>
+						<p class="text-red-700 text-3xl font-bold font-helvetica">{leakedPasswords.length}</p>
 					{/if}
 				</div>
 
@@ -201,17 +201,17 @@
 				<div class="flex flex-col place-items-center">
 					<h1 class="mb-5 font-helvetica text-lg">Average Password Strength</h1>
 					{#if avrPassStrength == -1}
-						<p class="text-green-700 text-xl font-bold font-helvetica">Generate To Get Started</p>
+						<p class="text-green-700 text-2xl font-bold font-helvetica">Generate To Get Started</p>
 					{:else if avrPassStrength >= 3.8}
-						<p class="text-{greatPassColor} text-2xl font-bold font-helvetica">GREAT</p>
+						<p class="text-green-500 text-3xl font-bold font-helvetica">GREAT</p>
 					{:else if avrPassStrength >= 3}
-						<p class="text-{goodPassColor} text-2xl font-bold font-helvetica">Good</p>
+						<p class="text-green-700 text-3xl font-bold font-helvetica">Good</p>
 					{:else if avrPassStrength >= 2}
-						<p class="text-{okPassColor} text-2xl font-bold font-helvetica">Ok</p>
+						<p class="text-yellow-500 text-3xl font-bold font-helvetica">Ok</p>
 					{:else if avrPassStrength > 1}
-						<p class="text-{badPassColor} text-2xl font-bold font-helvetica">Bad</p>
+						<p class="text-red-800 text-3xl font-bold font-helvetica">Bad</p>
 					{:else if avrPassStrength <= 1}
-						<p class="text-{terriblePassColor} text-2xl font-bold font-helvetica">Terrible</p>
+						<p class="text-red-500 text-3xl font-bold font-helvetica">Terrible</p>
 					{/if}
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Input from '$lib/components/Input.svelte';
+	import Passwords from '$lib/components/Passwords.svelte';
 	import {
 		getPassword,
 		passwordStrength,
@@ -7,7 +8,7 @@
 		generatePassword
 	} from '$lib/utils';
 	import { Record } from 'pocketbase';
-	import { each } from 'svelte/internal';
+	import { component_subscribe, each } from 'svelte/internal';
 	import { boolean } from 'zod';
 
 	export let data: {
@@ -17,12 +18,8 @@
 
 	let avrPassStrength = averagePasswordStrength(data.passwords);
 	let leakedPasswords: Array<string>;
-	let suggestions: { suggestion: string; passwordIndex: number | undefined };
+	let suggestions: [suggestion: string, passwordID: string] | undefined;
 	let deleteThisWebsiteId: string;
-
-	//Clipboard vars and functions
-	let clipboardHover = false;
-	let clipboardClick = false;
 
 	//PopUp divs (Hidden/Visible)
 	let activeNewPassDiv = false;
@@ -34,16 +31,6 @@
 	let okPassColor = 'yellow-500';
 	let badPassColor = 'red-800';
 	let terriblePassColor = 'red-500';
-
-	//Show password variables and functions
-	let shownPassword: number;
-	let shownPasswords: Array<boolean> = [];
-
-	if (data.passwords != undefined) {
-		for (let index = 0; index < data.passwords?.length; index++) {
-			shownPasswords.push(false);
-		}
-	}
 
 	//New password variables
 	let newWebInput = '';
@@ -151,130 +138,7 @@
 			</div>
 
 			<div class="p-2 rounded-b-2xl">
-				{#if data.passwords !== undefined}
-					<table class="w-full">
-						<thead>
-							<tr>
-								<th class="w-5/12 text-left">Websites</th>
-								<th class="w-3/12" />
-								<th class="w-4/12 text-left">Passwords</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each data.passwords as [websiteID, website, password], i}
-								<tr class="bg-slate-600 even:bg-slate-700">
-									<td>
-										<a class="hover:underline hover:text-blue-600" href="https://www.{website}"
-											>{website}</a
-										></td
-									>
-
-									<!--Buttons that affect current password-->
-									<td class="flex justify-end pr-5">
-										<!--Trashcan-->
-										<input
-											class="hidden"
-											type="text"
-											id="website"
-											name="website"
-											value={websiteID}
-										/>
-										<div class="">
-											<button
-												on:click={() => (activeDeletePassDiv = true)}
-												on:click={() => (deleteThisWebsiteId = websiteID)}
-												type="submit"
-												class=""
-											>
-												<i class="fa-regular fa-trash-can text-lg text-red-600" />
-											</button>
-										</div>
-
-										<!--Eye-->
-										{#if shownPasswords[i]}
-											<button
-												on:click={() => (shownPassword = i)}
-												on:click={() => (shownPasswords[i] = !shownPasswords[i])}
-											>
-												<i class="fa-solid fa-eye-slash text-lg mx-[6.88px]" />
-											</button>
-										{:else}
-											<button
-												on:click={() => (shownPassword = i)}
-												on:click={() => (shownPasswords[i] = !shownPasswords[i])}
-											>
-												<i class="fa-solid fa-eye text-lg mx-2" />
-											</button>
-										{/if}
-
-										<!--Change password-->
-										<form action="?/editPassword" method="POST">
-											<input
-												class="hidden"
-												type="text"
-												id="websiteID"
-												name="websiteID"
-												value={websiteID}
-											/>
-											<input
-												class="hidden"
-												type="text"
-												id="website"
-												name="website"
-												value={website}
-											/>
-											<input
-												class="hidden"
-												type="text"
-												id="newPassword"
-												name="newPassword"
-												value="NewPasswordHere"
-											/>
-											<button type="submit">
-												<i
-													class="fa-solid fa-arrows-rotate text-lg text-blue-500 hover:rotate-45 duration-300"
-												/>
-											</button>
-										</form>
-
-										<!--Copy password-->
-										<button
-											on:click={() => navigator.clipboard.writeText(password)}
-											on:mouseover={() => (clipboardHover = true)}
-											on:mouseleave={() => (clipboardHover = false)}
-											on:focus={() => (clipboardClick = true)}
-											class="text-lg ml-2"
-										>
-											{#if clipboardHover && !clipboardClick}
-												<i class="fa-solid fa-clipboard-list" />
-											{:else if clipboardClick}
-												<i class="fa-solid fa-clipboard-check" />
-											{:else}
-												<i class="fa-regular fa-clipboard" />
-											{/if}
-										</button>
-									</td>
-
-									<!--Determines whether to show password or not-->
-									{#if shownPasswords[i]}
-										<td
-											><button
-												on:click={() => navigator.clipboard.writeText(password)}
-												class="hover:underline">{password}</button
-											></td
-										>
-										<!-- {eyeType = "fa-solid fa-eye-slash text-green-600"} -->
-									{:else}
-										<td>********</td>
-										<!-- {eyeType = "fa-regular fa-eye text-gray-400"} -->
-									{/if}
-								</tr>
-							{/each}
-						</tbody>
-					</table>
-				{:else}
-					<p>You dont have any passwords. Generate one to get started!</p>
-				{/if}
+				<Passwords passwords={data.passwords} />
 			</div>
 		</div>
 	</div>
@@ -372,8 +236,7 @@
 			<div class="flex flex-row mt-[4vh]">
 				<button
 					on:click={() => (activeDeletePassDiv = !activeDeletePassDiv)}
-					class="bg-gray-300 hover:bg-opacity-[85%] p-1 w-[10vw] h-[5vh] mr-[1vw] hover:bg-opacity-[85%]"
-					>Cancel</button
+					class="bg-gray-300 hover:bg-opacity-[85%] p-1 w-[10vw] h-[5vh] mr-[1vw] ">Cancel</button
 				>
 				<form
 					action="?/deletePassword"

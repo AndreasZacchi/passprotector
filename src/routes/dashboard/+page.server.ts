@@ -61,5 +61,25 @@ export const actions: Actions = {
 			console.log('Error: ', err);
 			throw error(500, 'Something went wrong');
 		}
+	},
+	editPassword: async ({ locals, request }) => {
+		if (!locals.pb.authStore.isValid) {
+			throw redirect(302, '/auth/login');
+		}
+		const body = Object.fromEntries(await request.formData());
+		try {
+			const data = {
+				user: locals.user.id,
+				website: body.website,
+				password: encryptUserPassword(body.newPassword.toString(), SECRET)
+			};
+
+			const record = await locals.pb
+				.collection('passwords')
+				.update(body.websiteID.toString(), data);
+		} catch (err) {
+			console.log('Error: ', err);
+			throw error(500, 'Something went wrong');
+		}
 	}
 };

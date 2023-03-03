@@ -208,11 +208,34 @@
 										{/if}
 
 										<!--Change password-->
-										<button>
-											<i
-												class="fa-solid fa-arrows-rotate text-lg text-blue-500 hover:rotate-45 duration-300"
+										<form action="?/editPassword" method="POST">
+											<input
+												class="hidden"
+												type="text"
+												id="websiteID"
+												name="websiteID"
+												value={websiteID}
 											/>
-										</button>
+											<input
+												class="hidden"
+												type="text"
+												id="website"
+												name="website"
+												value={website}
+											/>
+											<input
+												class="hidden"
+												type="text"
+												id="newPassword"
+												name="newPassword"
+												value="NewPasswordHere"
+											/>
+											<button type="submit">
+												<i
+													class="fa-solid fa-arrows-rotate text-lg text-blue-500 hover:rotate-45 duration-300"
+												/>
+											</button>
+										</form>
 
 										<!--Copy password-->
 										<button

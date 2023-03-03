@@ -222,43 +222,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!--Delete password popup div-->
-	<div
-		class:activeDeletePassDiv={activeDeletePassDiv === true}
-		class="z-10 absolute hidden	items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30"
-	>
-		<div class="flex flex-col z-30 absolute p-4 h-[25vh] w-[50vw] bg-white rounded-md">
-			<h1 class="text-xl">Are you sure you want to delete this password?</h1>
-			<p>This cannot be undone, the password will be permanently deleted</p>
-
-			<!--Buttons-->
-			<div class="flex flex-row mt-[4vh]">
-				<button
-					on:click={() => (activeDeletePassDiv = !activeDeletePassDiv)}
-					class="bg-gray-300 hover:bg-opacity-[85%] p-1 w-[10vw] h-[5vh] mr-[1vw] ">Cancel</button
-				>
-				<form
-					action="?/deletePassword"
-					method="POST"
-					class="bg-red-500 flex justify-center p-1 w-[10vw] h-[5vh] ml-[1vw] hover:bg-opacity-[85%]"
-				>
-					<input
-						class="hidden"
-						type="text"
-						id="website"
-						name="website"
-						value={deleteThisWebsiteId}
-					/>
-					<button
-						on:click={() => (activeDeletePassDiv = !activeDeletePassDiv)}
-						type="submit"
-						class="w-full hover:bg-opacity-[85%]">Delete</button
-					>
-				</form>
-			</div>
-		</div>
-	</div>
 </div>
 
 <style>

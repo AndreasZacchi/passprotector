@@ -1,4 +1,4 @@
-import { generatePassword, getPassword } from '$lib/utils';
+import { encryptUserPassword, generatePassword, getPassword } from '$lib/utils';
 import { error, redirect, type Actions, type ServerLoad } from '@sveltejs/kit';
 
 import { SECRET } from '$env/static/private';
@@ -16,7 +16,7 @@ export const load: ServerLoad = async ({ locals }) => {
 	if (records[0] !== undefined) {
 		let passwords = new Array();
 		records.forEach((e) => {
-			passwords.push([e.website, getPassword(e.password, SECRET)]);
+			passwords.push([e.id, e.website, getPassword(e.password, SECRET)]);
 		});
 		return {
 			passwords
@@ -30,13 +30,19 @@ export const actions: Actions = {
 			throw redirect(302, '/auth/login');
 		}
 		const body = Object.fromEntries(await request.formData());
-
 		try {
-			const data = {
+			let data = {
 				user: locals.user.id,
 				website: body.website,
 				password: generatePassword(SECRET, false)
 			};
+			if (body.userPassword) {
+				data = {
+					user: locals.user.id,
+					website: body.website,
+					password: encryptUserPassword(body.userPassword.toString(), SECRET)
+				};
+			}
 
 			const record = await locals.pb.collection('passwords').create(data);
 		} catch (err) {
@@ -50,10 +56,7 @@ export const actions: Actions = {
 		}
 		const body = Object.fromEntries(await request.formData());
 		try {
-			const record = await locals.pb
-				.collection('passwords')
-				.getFirstListItem('website="' + body.website + '" && user="' + locals.user.id + '"');
-			const result = await locals.pb.collection('passwords').delete(record.id);
+			const result = await locals.pb.collection('passwords').delete(body.website.toString());
 		} catch (err) {
 			console.log('Error: ', err);
 			throw error(500, 'Something went wrong');

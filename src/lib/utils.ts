@@ -62,6 +62,10 @@ export const generatePassword = (secret: string, specialChars: boolean) => {
 	return CryptoJS.AES.encrypt(password, secret).toString();
 };
 
+export const encryptUserPassword = (password: string, secret: string) => {
+	return CryptoJS.AES.encrypt(password, secret).toString();
+};
+
 export const getPassword = (password: string, secret: string) => {
 	return CryptoJS.AES.decrypt(password, secret).toString(CryptoJS.enc.Utf8);
 };
@@ -71,7 +75,7 @@ export const passwordStrength = (password: string) => {
 };
 
 export const averagePasswordStrength = (
-	passwords: [website: string, password: string] | undefined
+	passwords: [websiteID: string, website: string, password: string] | undefined
 ) => {
 	// Set strength to -1 so we know there are no passwords.
 	let strength = -1;
@@ -80,7 +84,7 @@ export const averagePasswordStrength = (
 		strength = 0;
 		// Loop through each password and add the score
 		passwords?.forEach((e) => {
-			strength += zxcvbn(e[1]).score;
+			strength += zxcvbn(e[2]).score;
 		});
 		// Divide by amount of passwords to get average strength
 		strength /= passwords?.length;

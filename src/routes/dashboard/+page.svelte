@@ -10,13 +10,23 @@
 	import { each } from 'svelte/internal';
 	import { boolean } from 'zod';
 
-	export let data: { user: Record; passwords: [website: string, password: string] | undefined };
+	export let data: {
+		user: Record;
+		passwords: [websiteID: string, website: string, password: string] | undefined;
+	};
 
 	let avrPassStrength = averagePasswordStrength(data.passwords);
 	let leakedPasswords: Array<string>;
 	let suggestions: { suggestion: string; passwordIndex: number | undefined };
+	let deleteThisWebsiteId: string;
 
-	let active = false;
+	//Clipboard vars and functions
+	let clipboardHover = false;
+	let clipboardClick = false;
+
+	//PopUp divs (Hidden/Visible)
+	let activeNewPassDiv = false;
+	let activeDeletePassDiv = false;
 
 	//Password strength colors
 	let greatPassColor = 'FF5733';
@@ -41,121 +51,33 @@
 	let passStrength = 0;
 	$: passStrength = passwordStrength(newPassInput);
 
-	function passStrengthBorderColor(
-		passwordStrength: number,
-		greatColor: string,
-		goodColor: string,
-		badColor: string,
-		terribleColor: string
-	) {
-		if (passStrength < 1) {
-			return 'border-' + terribleColor;
-		} else if (passStrength < 2) {
-			return 'border-' + badColor;
-		} else if (passStrength < 3) {
-			return 'border-' + goodColor;
-		} else if (passStrength <= 4) {
-			return 'border-' + greatColor;
+	function passStrengthBorderColor(passwordStrength: number, password: string) {
+		if (passStrength < 1 && password != '') {
+			return 'border-red-500';
+		} else if (passStrength < 2 && password != '') {
+			return 'border-red-800';
+		} else if (passStrength < 3 && password != '') {
+			return 'border-green-700';
+		} else if (passStrength <= 4 && password != '') {
+			return 'border-green-500';
 		} else {
 			return 'border-slate-700';
 		}
 	}
-	let borderbackGround = passStrengthBorderColor(
-		passStrength,
-		greatPassColor,
-		goodPassColor,
-		badPassColor,
-		terriblePassColor
-	);
-	$: borderbackGround = passStrengthBorderColor(
-		passStrength,
-		greatPassColor,
-		goodPassColor,
-		badPassColor,
-		terriblePassColor
-	);
+	let borderColor = passStrengthBorderColor(passStrength, newPassInput);
+	$: borderColor = passStrengthBorderColor(passStrength, newPassInput);
 </script>
 
 <!--Main div-->
 <div class="relative flex justify-center">
-	<!--PopUp div-->
-	<div
-		id="newPassword"
-		class:active={active === true}
-		class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30"
-	>
-		<!--Menu div-->
-		<div class="flex flex-col z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
-			<!--Control bar-->
-			<div class="h-10 p-2 bg-slate-200">
-				<button
-					on:click={() => (active = false)}
-					class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg"
-				>
-					Close
-				</button>
-			</div>
-			<!--Popup div content-->
-			<div class="flex flex-row h-full w-full">
-				<!--Type bar-->
-				<div class="flex flex-col w-[15%] h-full px-1.5 py-3 bg-main-100">
-					<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Account</button>
-					<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Credit card</button
-					>
-				</div>
-
-				<!--Password input-->
-				<form class="w-full h-full flex px-4 py-2 flex-col">
-					<h1 class="text-2xl font-helvetica">Password</h1>
-					<span class="text-sm"
-						>Your password will be encrypted, no one will be able to read it except you.</span
-					>
-					<label for="websiteInput" class="mt-3">Website</label>
-					<input
-						bind:value={newWebInput}
-						id="websiteInput"
-						class="focus:bg-slate-200 hover:bg-slate-200 outline-none focus:shadow-inner px-0.5 border-b-2 border-slate-700"
-					/>
-
-					<label for="passwordInput" class="mt-3">Password</label>
-					<input
-						bind:value={newPassInput}
-						class="focus:bg-slate-200 hover:bg-slate-200 outline-none focus:shadow-inner px-0.5 border-b-2 {borderbackGround}"
-					/>
-					{#if newPassInput != '' && newWebInput != ''}
-						{#if passStrength != 4}
-							<!--Error message div-->
-							<form action="?/generatePassword" method="POST" class="flex flex-row">
-								<input id="website" name="website" class="hidden" value={newWebInput} />
-								<p>We would not recommend using this password, let us</p>
-								<button type="submit" class="px-1 underline text-blue-500">generate</button>
-								<p>a better one</p>
-							</form>
-						{/if}
-						<button
-							type="submit"
-							on:click={() => (active = false)}
-							class="bg-main-200 px-2 w-20 mt-5 hover:bg-opacity-[85%]">Save</button
-						>
-					{:else}
-						<button
-							disabled
-							type="submit"
-							on:click={() => (active = false)}
-							class="bg-main-200 px-2 w-20 mt-5 bg-opacity-[50%]">Save</button
-						>
-					{/if}
-				</form>
-			</div>
-		</div>
-	</div>
-
 	<!--Dashboard div-->
 	<div class="flex flex-col w-full p-4">
 		<!--Stats div-->
 		<div class="flex flex-row h-40">
 			<!--Suggestions div-->
-			<div class="border-2 border-slate-300 rounded-2xl p-4 shadow-lg flex flex-col w-1/2 mr-1.5">
+			<div
+				class="bg-main-600 border-2 border-slate-300 rounded-2xl p-4 shadow-lg flex flex-col w-1/2 mr-1.5"
+			>
 				<label for="suggestions" class="text-lg font-helvetica">Suggestions</label>
 				<ul
 					id="suggestions"
@@ -173,7 +95,7 @@
 
 			<!--Statistics-->
 			<div
-				class="border-2 border-slate-300 w-1/2 rounded-2xl shadow-lg grid grid-cols-3 p-4 ml-1.5 text-center"
+				class="bg-main-600 border-2 border-slate-300 w-1/2 rounded-2xl shadow-lg grid grid-cols-3 p-4 ml-1.5 text-center"
 			>
 				<!--Stored Paswords-->
 				<div class="flex flex-col place-items-center">
@@ -218,12 +140,12 @@
 		</div>
 
 		<!--Password list div-->
-		<div class="border-2 border-slate-300 mt-3 rounded-2xl">
+		<div class="bg-slate-600 border-2 border-slate-300 mt-3 rounded-2xl shadow-lg">
 			<!--Control bar div-->
 			<div class="p-2 border-b-[1px] border-slate-200">
 				<button
-					on:click={() => (active = true)}
-					class="px-1 py-0.5 w-36 bg-main-200 hover:bg-opacity-[0.85] rounded-lg"
+					on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
+					class="px-1 py-0.5 w-36 bg-main-300 hover:bg-opacity-[0.85] rounded-lg"
 					>New Password</button
 				>
 			</div>
@@ -239,8 +161,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							{#each data.passwords as [website, password], i}
-								<tr class="bg-white even:bg-gray-100">
+							{#each data.passwords as [websiteID, website, password], i}
+								<tr class="bg-slate-600 even:bg-slate-700">
 									<td>
 										<a class="hover:underline hover:text-blue-600" href="https://www.{website}"
 											>{website}</a
@@ -250,20 +172,23 @@
 									<!--Buttons that affect current password-->
 									<td class="flex justify-end pr-5">
 										<!--Trashcan-->
-										<form action="?/deletePassword" method="POST" class="">
-											<input
-												class="hidden"
-												type="text"
-												id="website"
-												name="website"
-												value={website}
-											/>
-											<div class="">
-												<button type="submit" class="">
-													<i class="fa-regular fa-trash-can text-lg text-red-600" />
-												</button>
-											</div>
-										</form>
+										<input
+											class="hidden"
+											type="text"
+											id="website"
+											name="website"
+											value={websiteID}
+										/>
+										<div class="">
+											<button
+												on:click={() => (activeDeletePassDiv = true)}
+												on:click={() => (deleteThisWebsiteId = websiteID)}
+												type="submit"
+												class=""
+											>
+												<i class="fa-regular fa-trash-can text-lg text-red-600" />
+											</button>
+										</div>
 
 										<!--Eye-->
 										{#if shownPasswords[i]}
@@ -290,8 +215,20 @@
 										</button>
 
 										<!--Copy password-->
-										<button on:click={() => navigator.clipboard.writeText(password)}>
-											<i class="fa-regular fa-clipboard text-lg ml-2" />
+										<button
+											on:click={() => navigator.clipboard.writeText(password)}
+											on:mouseover={() => (clipboardHover = true)}
+											on:mouseleave={() => (clipboardHover = false)}
+											on:focus={() => (clipboardClick = true)}
+											class="text-lg ml-2"
+										>
+											{#if clipboardHover && !clipboardClick}
+												<i class="fa-solid fa-clipboard-list" />
+											{:else if clipboardClick}
+												<i class="fa-solid fa-clipboard-check" />
+											{:else}
+												<i class="fa-regular fa-clipboard" />
+											{/if}
 										</button>
 									</td>
 
@@ -318,10 +255,131 @@
 			</div>
 		</div>
 	</div>
+
+	<!--New password popup div-->
+	<div
+		id="newPassword"
+		class:activeNewPassDiv={activeNewPassDiv === true}
+		class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30"
+	>
+		<!--Menu div-->
+		<div class="flex flex-col z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
+			<!--Control bar-->
+			<div class="h-10 p-2 bg-slate-200">
+				<button
+					on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
+					on:click={() => (newPassInput = '')}
+					on:click={() => (newWebInput = '')}
+					class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg"
+				>
+					Close
+				</button>
+			</div>
+			<!--Popup div content-->
+			<div class="flex flex-row h-full w-full">
+				<!--Type bar-->
+				<div class="flex flex-col w-[15%] h-full px-1.5 py-3 bg-main-100">
+					<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Account</button>
+					<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Credit card</button
+					>
+				</div>
+
+				<!--Password input-->
+				<form
+					action="?/generatePassword"
+					method="POST"
+					class="w-full h-full flex px-4 py-2 flex-col"
+				>
+					<h1 class="text-2xl font-helvetica">Password</h1>
+					<span class="text-sm"
+						>Your password will be encrypted, no one will be able to read it except you.</span
+					>
+					<label for="website" class="mt-3">Website</label>
+					<input
+						bind:value={newWebInput}
+						id="website"
+						name="website"
+						class="focus:bg-slate-200 hover:bg-slate-200 outline-none focus:shadow-inner px-0.5 border-b-2 border-slate-700"
+					/>
+					<label for="passwordInput" class="mt-3">Password</label>
+					<input
+						bind:value={newPassInput}
+						id="userPassword"
+						name="userPassword"
+						class="focus:bg-slate-200 hover:bg-slate-200 outline-none focus:shadow-inner px-0.5 border-b-2 {borderColor}"
+					/>
+					{#if newPassInput != '' && newWebInput != ''}
+						{#if passStrength != 4}
+							<!--Error message div-->
+							<form action="?/generatePassword" method="POST" class="flex flex-row">
+								<input id="website" name="website" class="hidden" value={newWebInput} />
+								<p>We would not recommend using this password, let us</p>
+								<button type="submit" class="px-1 underline text-blue-500">generate</button>
+								<p>a better one</p>
+							</form>
+						{/if}
+						<button
+							type="submit"
+							on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
+							class="bg-main-200 px-2 w-20 mt-5 hover:bg-opacity-[85%]">Save</button
+						>
+					{:else}
+						<button
+							disabled
+							type="submit"
+							on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
+							class="bg-main-200 px-2 w-20 mt-5 bg-opacity-[50%]">Save</button
+						>
+					{/if}
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!--Delete password popup div-->
+	<div
+		class:activeDeletePassDiv={activeDeletePassDiv === true}
+		class="z-10 absolute hidden	items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30"
+	>
+		<div class="flex flex-col z-30 absolute p-4 h-[25vh] w-[50vw] bg-white rounded-md">
+			<h1 class="text-xl">Are you sure you want to delete this password?</h1>
+			<p>This cannot be undone, the password will be permanently deleted</p>
+
+			<!--Buttons-->
+			<div class="flex flex-row mt-[4vh]">
+				<button
+					on:click={() => (activeDeletePassDiv = !activeDeletePassDiv)}
+					class="bg-gray-300 hover:bg-opacity-[85%] p-1 w-[10vw] h-[5vh] mr-[1vw] hover:bg-opacity-[85%]"
+					>Cancel</button
+				>
+				<form
+					action="?/deletePassword"
+					method="POST"
+					class="bg-red-500 flex justify-center p-1 w-[10vw] h-[5vh] ml-[1vw] hover:bg-opacity-[85%]"
+				>
+					<input
+						class="hidden"
+						type="text"
+						id="website"
+						name="website"
+						value={deleteThisWebsiteId}
+					/>
+					<button
+						on:click={() => (activeDeletePassDiv = !activeDeletePassDiv)}
+						type="submit"
+						class="w-full hover:bg-opacity-[85%]">Delete</button
+					>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <style>
-	.active {
+	.activeNewPassDiv {
+		display: flex;
+	}
+	.activeDeletePassDiv {
 		display: flex;
 	}
 </style>

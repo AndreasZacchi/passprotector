@@ -55,3 +55,10 @@ export const generatePassword = (secret: string) => {
 export const getPassword = (password: string, secret: string) => {
 	return CryptoJS.AES.decrypt(password, secret).toString(CryptoJS.enc.Utf8);
 };
+
+// Carousel next image function
+export const nextReview = () => {
+
+	
+
+}

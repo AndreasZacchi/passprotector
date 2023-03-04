@@ -26,6 +26,8 @@
     {#each Images as { name, src, review }}
         <li class="flex flex-col h-96 w-80 directi rounded-2xl shadow-xl">
             
+            <i class="fa-solid fa-arrow-left"></i>
+
             <div class=" bg-main-300 flex justify-center h-[40%] rounded-t-2xl">
                 <img class=" mt-2 border-[6px] border-main-300 w-48 h-48 rounded-[50%]" src={src} alt="hello"/>
             </div>
@@ -35,6 +37,8 @@
                 <p class=" pt-2 italic">{review}</p>
             </div>
             
+            <i class="fa-solid fa-arrow-right"></i>
+
         </li>
     {/each}
 </ul>

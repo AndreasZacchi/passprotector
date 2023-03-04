@@ -89,14 +89,6 @@
     let subscriptionModels: Array<Subscription> = [free, basis, premium]
     let reviews: Array<Review> = [mkbhd, ltt, wsj]
 
-    // Images for carousel
-    /* export let images = [
-        {name: "Jeff Bezos", src: "/22.jpg", review: '"I use PassProtector to keep all of my important passwords!"'},
-        {name: "Mark Cuban", src: "/22.jpg", review: '"All the maverick players use this password manager!"'},
-        {name: "Matty", src: "/22.jpg", 
-        review: '"Absolutely amazing. I use this password manager to keep my password for my thosaunds of child porno on my pc!"'},
-    ] */
-
 </script>
 
 <!--Main Div-->

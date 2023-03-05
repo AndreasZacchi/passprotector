@@ -1,10 +1,13 @@
 <script lang="ts">
+	import ConfirmDeletePassword from './ConfirmDeletePassword.svelte';
+
 	export let id: string;
 	export let website: string;
 	export let password: string;
 
 	let showPassword = false;
 	let clipboardHover = false;
+	let activeDeletePassDiv = false;
 </script>
 
 <tr class="bg-slate-600 even:bg-slate-700">
@@ -16,12 +19,12 @@
 	<td class="flex justify-end pr-5">
 		<!--Trashcan-->
 		<div class="">
-			<form action="?/deletePassword" method="POST">
-				<input class="hidden" type="text" id="website" name="website" value={id} />
-				<button type="submit" class="w-full hover:bg-opacity-[85%]"
-					><i class="fa-regular fa-trash-can text-lg text-red-600" /></button
-				>
-			</form>
+			<button
+				on:click={() => (activeDeletePassDiv = !activeDeletePassDiv)}
+				type="submit"
+				class="w-full hover:bg-opacity-[85%]"
+				><i class="fa-regular fa-trash-can text-lg text-red-600" /></button
+			>
 		</div>
 
 		<!--Eye-->
@@ -76,3 +79,4 @@
 		<td>********</td>
 	{/if}
 </tr>
+<ConfirmDeletePassword bind:activeDeletePassDiv {id} />

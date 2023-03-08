@@ -7,9 +7,7 @@
 	let avrPassStrength = averagePasswordStrength(passwords);
 </script>
 
-<div
-	class="bg-main-600 border-2 border-slate-300 w-1/2 rounded-2xl shadow-lg grid grid-cols-3 p-4 ml-1.5 text-center"
->
+<div class="bg-main2-30 w-1/2 rounded-2xl shadow-lg grid grid-cols-3 p-4 ml-1.5 text-center">
 	<!--Stored Paswords-->
 	<div class="flex flex-col place-items-center">
 		<h1 class="mb-5 font-helvetica text-lg">Protected Passwords</h1>

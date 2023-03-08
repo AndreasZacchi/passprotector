@@ -3,19 +3,21 @@
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
 </script>
 
-<div class="p-2 rounded-b-2xl">
+<div class="py-2 rounded-b-2xl">
 	{#if passwords}
 		<table class="w-full">
 			<thead>
 				<tr>
-					<th class="w-5/12 text-left">Websites</th>
+					<th class="w-5/12 text-left pl-2">Websites</th>
 					<th class="w-3/12" />
-					<th class="w-4/12 text-left">Passwords</th>
+					<th class="w-4/12 text-left pr-2">Passwords</th>
 				</tr>
 			</thead>
 			<tbody>
 				{#each passwords as [websiteID, website, password]}
-					<Password id={websiteID} {website} {password} />
+					<tr class="odd:bg-main2-30 even:bg-transparent w-[100%]">
+						<Password id={websiteID} {website} {password} />
+					</tr>
 				{/each}
 			</tbody>
 		</table>

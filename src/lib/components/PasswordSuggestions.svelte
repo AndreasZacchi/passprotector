@@ -2,9 +2,7 @@
 	let suggestions: [suggestion: string, passwordID: string] | undefined;
 </script>
 
-<div
-	class="bg-main-600 border-2 border-slate-300 rounded-2xl p-4 shadow-lg flex flex-col w-1/2 mr-1.5"
->
+<div class="rounded-2xl p-4 shadow-lg flex flex-col w-1/2 mr-1.5 bg-main2-30">
 	<label for="suggestions" class="text-lg font-helvetica">Suggestions</label>
 	<ul
 		id="suggestions"

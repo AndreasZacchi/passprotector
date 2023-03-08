@@ -14,7 +14,7 @@
 </script>
 
 <!--Main div-->
-<div class="relative flex justify-center">
+<div class="relative flex justify-center bg-main2-60">
 	<!--Dashboard div-->
 	<div class="flex flex-col w-full p-4">
 		<!--Stats div-->
@@ -26,9 +26,9 @@
 			<PasswordStatistics passwords={data.passwords} />
 		</div>
 		<!--Password list div-->
-		<div class="bg-slate-600 border-2 border-slate-300 mt-3 rounded-2xl shadow-lg">
+		<div class="mt-3 rounded-2xl shadow-lg">
 			<!--Control bar div-->
-			<div class="p-2 border-b-[1px] border-slate-200">
+			<div class="p-2 bg-main2-30 rounded-t-lg">
 				<button
 					on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
 					class="px-1 py-0.5 w-36 bg-main-300 hover:bg-opacity-[0.85] rounded-lg"

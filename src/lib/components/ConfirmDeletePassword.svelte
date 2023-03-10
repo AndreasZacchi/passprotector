@@ -3,7 +3,7 @@
 	export let id: string;
 </script>
 
-<div id="newPassword" class:activeDeletePassDiv={activeDeletePassDiv === true} class="hidden">
+<div id="newPassword" class:activeDeletePassDiv={activeDeletePassDiv === true} class="hidden pl-2">
 	<form action="?/deletePassword" method="POST">
 		<input class="hidden" type="text" id="website" name="website" value={id} />
 		<p>Are you sure you want to delete this password?</p>

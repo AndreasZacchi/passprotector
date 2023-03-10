@@ -11,7 +11,8 @@
 </script>
 
 <td>
-	<a class="pl-2 hover:underline hover:text-blue-600" href="https://www.{website}">{website}</a></td
+	<a class="pl-2 hover:underline hover:text-blue-600" href="https://www.{website}">{website}</a
+	><ConfirmDeletePassword bind:activeDeletePassDiv {id} /></td
 >
 
 <!--Buttons that affect current password-->
@@ -62,6 +63,7 @@
 </td>
 
 <!--Determines whether to show password or not-->
+<!-- TODO: Fix stars moving -->
 {#if showPassword}
 	<td
 		><button on:click={() => navigator.clipboard.writeText(password)} class="pr-2 hover:underline"
@@ -71,4 +73,3 @@
 {:else}
 	<td class="pr-2">********</td>
 {/if}
-<ConfirmDeletePassword bind:activeDeletePassDiv {id} />

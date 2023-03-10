@@ -1,9 +1,10 @@
 <script lang="ts">
 	import Password from '$lib/components/Password.svelte';
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
+	export let searchTerm = '';
 </script>
 
-<div class="py-2 rounded-b-2xl">
+<div class="py-2 rounded-md w-[100%] bg-white">
 	{#if passwords}
 		<table class="w-full">
 			<thead>
@@ -15,9 +16,11 @@
 			</thead>
 			<tbody>
 				{#each passwords as [websiteID, website, password]}
-					<tr class="odd:bg-main2-30 even:bg-transparent w-[100%]">
-						<Password id={websiteID} {website} {password} />
-					</tr>
+					{#if website.includes(searchTerm)}
+						<tr class="odd:bg-slate-200 even:bg-white w-[100%]">
+							<Password id={websiteID} {website} {password} />
+						</tr>
+					{/if}
 				{/each}
 			</tbody>
 		</table>

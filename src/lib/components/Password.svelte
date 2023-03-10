@@ -65,11 +65,7 @@
 <!--Determines whether to show password or not-->
 <!-- TODO: Fix stars moving -->
 {#if showPassword}
-	<td
-		><button on:click={() => navigator.clipboard.writeText(password)} class="pr-2 hover:underline"
-			>{password}</button
-		></td
-	>
+	<td><p>{password}</p></td>
 {:else}
 	<td class="pr-2">********</td>
 {/if}

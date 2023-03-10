@@ -28,7 +28,7 @@
 <div
 	id="newPassword"
 	class:activeNewPassDiv={activeNewPassDiv === true}
-	class="z-10 absolute hidden items-center justify-center h-[calc(100vh-4rem)] w-full bg-black bg-opacity-30"
+	class="z-30 absolute hidden items-center justify-center h-[100vh] w-full bg-black bg-opacity-30"
 >
 	<!--Menu div-->
 	<div class="flex flex-col z-30 absolute h-[50vh] w-[50vw] bg-white rounded-md">
@@ -45,15 +45,9 @@
 		</div>
 		<!--Popup div content-->
 		<div class="flex flex-row h-full w-full">
-			<!--Type bar-->
-			<div class="flex flex-col w-[15%] h-full px-1.5 py-3 bg-main-100">
-				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Account</button>
-				<button class="bg-main-200 hover:bg-opacity-[0.85] shadow-md mb-3 h-8">Credit card</button>
-			</div>
-
 			<!--Password input-->
 			<form action="?/generatePassword" method="POST" class="w-full h-full flex px-4 py-2 flex-col">
-				<h1 class="text-2xl font-helvetica">Password</h1>
+				<h1 class="text-2xl font-helvetica">New Password</h1>
 				<span class="text-sm"
 					>Your password will be encrypted, no one will be able to read it except you.</span
 				>
@@ -84,14 +78,15 @@
 					<button
 						type="submit"
 						on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
-						class="bg-main-200 px-2 w-20 mt-5 hover:bg-opacity-[85%]">Save</button
+						class="bg-main-orange-300 font-semibold px-2 w-20 mt-5 hover:bg-opacity-[85%]"
+						>Save</button
 					>
 				{:else}
 					<button
 						disabled
 						type="submit"
 						on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
-						class="bg-main-200 px-2 w-20 mt-5 bg-opacity-[50%]">Save</button
+						class="bg-main-orange-300 px-2 w-20 mt-5 bg-opacity-[50%]">Save</button
 					>
 				{/if}
 			</form>

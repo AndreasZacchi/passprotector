@@ -4,6 +4,7 @@
 	export let searchTerm = '';
 </script>
 
+<!--TODO: after a certain amount of passwords, make it rendered by pages-->
 <div class="py-2 rounded-md w-[100%] bg-white">
 	{#if passwords}
 		<table class="w-full">

@@ -121,7 +121,7 @@
 		<!--Try for free button-->
 		<a
 			href="/auth/register"
-			class="bg-main-300 rounded-lg p-2 font-poppins text-white ease-in duration-150 hover:bg-main-200 "
+			class=" border-2 border-main-orange-500 text-main-orange-500 hover:bg-main-orange-400 hover:border-main-orange-400 hover:text-blue-50 font-medium rounded-md text-lg mx-2 py-2 px-2 transition ease-linear delay-75"
 		>
 			Try PassProtector for Free
 		</a>

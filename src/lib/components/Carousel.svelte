@@ -33,11 +33,11 @@
 	<div class=" col-span-3 ">
 		<i
 			on:click={previous}
-			class=" px-36 fa-solid fa-arrow-left text-3xl hover:text-main-300 cursor-pointer transition ease-linear"
+			class=" px-36 fa-solid fa-arrow-left text-3xl hover:text-main-orange-300 cursor-pointer transition ease-linear"
 		/>
 		<i
 			on:click={next}
-			class=" px-36 fa-solid fa-arrow-right text-3xl hover:text-main-300 cursor-pointer transition ease-linear"
+			class=" px-36 fa-solid fa-arrow-right text-3xl hover:text-main-orange-300 cursor-pointer transition ease-linear"
 		/>
 	</div>
 
@@ -47,9 +47,9 @@
 				i == currentIndex ? 'active' : ''
 			} `}
 		>
-			<div class=" bg-main-300 flex justify-center h-[40%] rounded-t-2xl">
+			<div class=" bg-main-orange-300 flex justify-center h-[40%] rounded-t-2xl">
 				<img
-					class="mt-2 border-[6px] border-main-300 w-48 h-48 rounded-[50%] object-cover"
+					class="mt-2 border-[6px] border-main-orange-300 w-48 h-48 rounded-[50%] object-cover"
 					src={image.src}
 					alt="hello"
 				/>

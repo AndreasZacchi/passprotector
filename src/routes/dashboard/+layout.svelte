@@ -4,5 +4,5 @@
 
 <div class="flex flex-row">
 	<Menu />
-	<slot />
+	<div class="ml-[12rem] overflow-x-hidden"><slot /></div>
 </div>

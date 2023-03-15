@@ -1,3 +1,3 @@
-<div class="z-10">
+<div>
 	<h1>hello</h1>
 </div>

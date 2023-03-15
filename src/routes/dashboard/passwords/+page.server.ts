@@ -4,10 +4,6 @@ import { error, redirect, type Actions, type ServerLoad } from '@sveltejs/kit';
 import { SECRET } from '$env/static/private';
 
 export const load: ServerLoad = async ({ locals }) => {
-	if (!locals.pb.authStore.isValid) {
-		throw redirect(302, '/auth/login');
-	}
-
 	const records = await locals.pb.collection('passwords').getFullList(200, {
 		sort: '-website',
 		filter: `user.id="${locals.user.id}"`

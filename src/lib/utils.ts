@@ -1,4 +1,5 @@
 import type { Admin, Record } from 'pocketbase';
+import { onMount } from 'svelte';
 
 import * as CryptoJS from 'crypto-js';
 
@@ -55,3 +56,40 @@ export const generatePassword = (secret: string) => {
 export const getPassword = (password: string, secret: string) => {
 	return CryptoJS.AES.decrypt(password, secret).toString(CryptoJS.enc.Utf8);
 };
+
+
+export const navScroll = () => {
+	onMount(() => { 
+		const navbar = document.getElementById("navbar");
+		const currentPage = window.location.pathname;
+		
+		if (navbar && scrollY > 0) {
+			navbar.style.transition = "background-color 0.35s ease-out";
+			navbar.style.backgroundColor = "white";
+			navbar.style.borderBottomWidth = "1px";
+		}
+
+		window.addEventListener("scroll", () => {
+			if (navbar) {
+				// tilføjer bare en transition så det føles smooth
+				navbar.style.transition = "background-color 0.35s ease-out";
+	
+				// Sætter baggrundsfarven baseret så Scroll position, og om man er på mainpage 
+				navbar.style.backgroundColor = scrollY > 0 ? "white" : currentPage == "/" ? "transparent" : "white";
+				navbar.style.borderBottomWidth = scrollY > 0 ? "1px" : currentPage == "/" ? "0px" : "1px";
+			}
+		});
+		
+		
+
+	});
+};
+
+
+
+
+
+
+
+
+

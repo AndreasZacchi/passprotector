@@ -2,17 +2,27 @@ import type { Admin, Record } from 'pocketbase';
 import { onMount } from 'svelte';
 
 import * as CryptoJS from 'crypto-js';
+import zxcvbn from 'zxcvbn-typescript';
 
 export const serializeNonPOJOS = (obj: Record | Admin | null) => {
 	return structuredClone(obj);
 };
 
-export const generatePassword = (secret: string) => {
-	var chars = [
-		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-		'0123456789',
-		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-	];
+export const generatePassword = (secret: string, specialChars: boolean) => {
+	let chars: string[];
+	if (specialChars) {
+		chars = [
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!&$%#',
+			'0123456789',
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!&$%#'
+		];
+	} else {
+		chars = [
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+			'0123456789',
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+		];
+	}
 	function randInt(this_max: number) {
 		let umax = Math.pow(2, 32);
 		let max = umax - (umax % this_max);
@@ -24,7 +34,7 @@ export const generatePassword = (secret: string) => {
 	}
 
 	let password = [
-		[9, 4, 3]
+		[11, 6, 7]
 			.map(function (len, i) {
 				return new Array(len)
 					.fill(chars[i])
@@ -53,43 +63,57 @@ export const generatePassword = (secret: string) => {
 	return CryptoJS.AES.encrypt(password, secret).toString();
 };
 
+export const encryptUserPassword = (password: string, secret: string) => {
+	return CryptoJS.AES.encrypt(password, secret).toString();
+};
+
 export const getPassword = (password: string, secret: string) => {
 	return CryptoJS.AES.decrypt(password, secret).toString(CryptoJS.enc.Utf8);
 };
 
-
-export const navScroll = () => {
-	onMount(() => { 
-		const navbar = document.getElementById("navbar");
-		const currentPage = window.location.pathname;
-		
-		if (navbar && scrollY > 0) {
-			navbar.style.transition = "background-color 0.35s ease-out";
-			navbar.style.backgroundColor = "white";
-			navbar.style.borderBottomWidth = "1px";
-		}
-
-		window.addEventListener("scroll", () => {
-			if (navbar) {
-				// tilføjer bare en transition så det føles smooth
-				navbar.style.transition = "background-color 0.35s ease-out";
-	
-				// Sætter baggrundsfarven baseret så Scroll position, og om man er på mainpage 
-				navbar.style.backgroundColor = scrollY > 0 ? "white" : currentPage == "/" ? "transparent" : "white";
-				navbar.style.borderBottomWidth = scrollY > 0 ? "1px" : currentPage == "/" ? "0px" : "1px";
-			}
-		});
-		
-		
-
-	});
+export const passwordStrength = (password: string) => {
+	return zxcvbn(password).score;
 };
 
+export const averagePasswordStrength = (
+	passwords: [websiteID: string, website: string, password: string] | undefined
+) => {
+	// Set strength to -1 so we know there are no passwords.
+	let strength = -1;
+	if (passwords) {
+		// Reset strength since there is atleast 1 password
+		strength = 0;
+		// Loop through each password and add the score
+		passwords?.forEach((e) => {
+			strength += zxcvbn(e[2]).score;
+		});
+		// Divide by amount of passwords to get average strength
+		strength /= passwords?.length;
+	}
+	return strength;
+};
 
+export const navScroll = () => {
+	onMount(() => {
+		const navbar = document.getElementById('navbar');
+		const currentPage = window.location.pathname;
 
+		if (navbar && scrollY > 0) {
+			navbar.style.transition = 'background-color 0.35s ease-out';
+			navbar.style.backgroundColor = 'white';
+			navbar.style.borderBottomWidth = '1px';
+		}
 
+		window.addEventListener('scroll', () => {
+			if (navbar) {
+				// tilføjer bare en transition så det føles smooth
+				navbar.style.transition = 'background-color 0.35s ease-out';
 
-
-
-
-
+				// Sætter baggrundsfarven baseret så Scroll position, og om man er på mainpage
+				navbar.style.backgroundColor =
+					scrollY > 0 ? 'white' : currentPage == '/' ? 'transparent' : 'white';
+				navbar.style.borderBottomWidth = scrollY > 0 ? '1px' : currentPage == '/' ? '0px' : '1px';
+			}
+		});
+	});
+};

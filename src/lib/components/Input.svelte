@@ -1,4 +1,6 @@
+
 <script lang="ts">
+	export let bgcolor = "background-white";
 	export let value = '';
 	export let placeholder = '';
 	export let id: string;
@@ -15,7 +17,7 @@
 	</label>
 
 	<input
-		class="border-b-[2px] border-black outline-none text-lg w-80
+		class="{bgcolor} border-b-[2px] border-black outline-none text-lg w-80
 	focus:border-main-300 focus:border-b-[3px] focus:mb-[-1px] transition delay-75
 	hover:border-gray-700 hover:border-b-[3px] hover:mb-[-1px]"
 		{type}

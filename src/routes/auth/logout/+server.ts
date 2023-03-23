@@ -7,3 +7,9 @@ export const POST: ServerLoad = ({ locals }) => {
 
 	throw redirect(303, '/');
 };
+export const GET: ServerLoad = ({ locals }) => {
+	locals.pb.authStore.clear();
+	locals.user = locals.pb.authStore;
+
+	throw redirect(303, '/');
+};

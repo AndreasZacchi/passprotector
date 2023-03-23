@@ -2,12 +2,6 @@ import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
 import { ClientResponseError } from 'pocketbase';
 
-export const load: ServerLoad = ({ locals }) => {
-	if (locals.user) {
-		throw redirect(302, '/dashboard');
-	}
-};
-
 export const actions: Actions = {
 	login: async ({ locals, request }) => {
 		const data = Object.fromEntries(await request.formData());
@@ -23,6 +17,6 @@ export const actions: Actions = {
 				return fail(400, { email, error });
 			}
 		}
-		throw redirect(303, '/dashboard');
+		throw redirect(303, '/dashboard/profile');
 	}
 };

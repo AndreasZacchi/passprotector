@@ -48,9 +48,12 @@
 
 	<!--Logout div-->
 	<div class="flex flex-row w-[100%] items-center">
-		<button class="hover:bg-red-500 duration-150 h-14 font-semibold text-center w-full">
+		<a
+			href="../auth/logout"
+			class="hover:bg-red-500 duration-150 h-14 font-semibold text-center w-full"
+		>
 			<i class="fa-solid fa-right-from-bracket text-md" />
-			Log Out</button
+			Log Out</a
 		>
 	</div>
 </div>

@@ -10,15 +10,15 @@
 
 {#if destination !== undefined}
 	<a
-		href={destination} 
-		class="{textSize} {textColor} {boldness} {width} {height} bg-main-300 rounded-lg p-2 ease-in duration-150 hover:opacity-[0.85] "
+		href={destination}
+		class="{textSize} {textColor} {boldness} {width} {height} bg-main-orange-300 rounded-lg p-2 ease-in duration-150 hover:opacity-[0.85] "
 	>
 		{text}
 	</a>
 {:else}
 	<button
 		type="submit"
-		class="{textSize} {textColor} {boldness} {width} {height}  bg-main-300 rounded-lg p-2 ease-in duration-150 hover:opacity-[0.85]"
+		class="{textSize} {textColor} {boldness} {width} {height} bg-main-orange-300 rounded-lg p-2 ease-in duration-150 hover:opacity-[0.85]"
 		>{text}</button
 	>
 {/if}

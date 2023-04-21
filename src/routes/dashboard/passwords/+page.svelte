@@ -17,9 +17,9 @@
 </script>
 
 <NewPasswordPopup activeNewPassDiv={newPassDiv} />
-<div class="bg-main-gray-100 w-[90vw] flex flex-col items-center px-20 pt-8">
+<div class="bg-slate-200 min-h-[100vh] w-[90vw] flex flex-col items-center px-20 pt-8">
 	<!--Site menu-->
-	<div class="w-[100%] mb-14 flex flex-row bg-white rounded-md p-2">
+	<div class="w-[100%] mb-14 flex flex-row bg-white rounded-md p-2 shadow-sm">
 		<Searchbar id="searchBar" bind:searchTerm />
 		<button
 			on:click={() => (newPassDiv = !newPassDiv)}

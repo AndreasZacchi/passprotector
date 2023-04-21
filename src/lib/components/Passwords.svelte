@@ -5,7 +5,7 @@
 </script>
 
 <!--TODO: after a certain amount of passwords, make it rendered by pages-->
-<div class="py-2 rounded-md w-[100%] bg-white">
+<div class="py-2 rounded-md w-[100%] bg-white shadow-xl mb-4">
 	{#if passwords}
 		<table class="w-full">
 			<thead>

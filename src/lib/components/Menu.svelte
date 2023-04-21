@@ -50,7 +50,7 @@
 	<div class="flex flex-row w-[100%] items-center">
 		<a
 			href="../auth/logout"
-			class="hover:bg-red-500 duration-150 h-14 font-semibold text-center w-full"
+			class="flex hover:bg-red-500 duration-150 h-14 font-semibold text-center w-full justify-center items-center"
 		>
 			<i class="fa-solid fa-right-from-bracket text-md" />
 			Log Out</a

@@ -17,7 +17,6 @@
 </script>
 
 <NewPasswordPopup activeNewPassDiv={newPassDiv} />
-
 <div class="bg-main-gray-100 w-[90vw] flex flex-col items-center px-20 pt-8">
 	<!--Site menu-->
 	<div class="w-[100%] mb-14 flex flex-row bg-white rounded-md p-2">

@@ -9,7 +9,29 @@
 	let plan = data.user.plan;
 </script>
 
-<div class="ml-2 mt-2">
+<div class="flex flex-col bg-slate-200 w-[90vw] min-h-[100vh] items-center">
+	<div class="bg-white w-[80%] mt-8 px-8 flex flex-row">
+		<div class="w-48 h-48">Matty</div>
+		<div class="ml-4 flex flex-col">
+			<p>Navn</p>
+			<p>Mail</p>
+			<p>Plan</p>
+		</div>
+		<div class="ml-2 flex justify-end w-full">
+			<div class="flex flex-col mr-2">
+				<p>Payment plan</p>
+				<p>Per month</p>
+				<p>Additional fees</p>
+				<p>Total</p>
+			</div>
+		</div>
+	</div>
+	<div class="bg-white w-[80%] mt-8">
+		<p>teskt2</p>
+	</div>
+</div>
+
+<!-- <div class="ml-2 mt-2">
 	Your current plan is {data.user.plan}
 	<div class="flex flex-col">
 		<form action="?/changePlan" method="POST">
@@ -22,4 +44,4 @@
 			<Button text="Confirm" />
 		</form>
 	</div>
-</div>
+</div> -->

@@ -38,7 +38,7 @@
 				on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
 				on:click={() => (newPassInput = '')}
 				on:click={() => (newWebInput = '')}
-				class="hover:bg-opacity-[0.85] px-4 bg-red-400 rounded-lg"
+				class="hover:bg-opacity-[0.85] ml-1 px-5 bg-red-400"
 			>
 				Close
 			</button>

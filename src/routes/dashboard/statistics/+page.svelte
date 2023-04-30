@@ -3,7 +3,7 @@
 	import PasswordScore from '$lib/components/stats/PasswordScore.svelte';
 	import PasswordCount from '$lib/components/stats/PasswordCount.svelte';
 	import PasswordLeakRisk from '$lib/components/stats/PasswordLeakRisk.svelte';
-	import StatsGraph from '$lib/components/stats/StatsGraph.svelte';
+	import StatsChart from '$lib/components/stats/StatsChart.svelte';
 
 	export let data: {
 		user: Record;
@@ -25,6 +25,6 @@
 		<PasswordScore passwords={data.passwords} />
 	</div>
 	<div class="col-start-1 col-span-3 row-start-2 row-span-2">
-		<StatsGraph passwords={data.passwords} />
+		<StatsChart passwords={data.passwords} />
 	</div>
 </div>

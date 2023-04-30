@@ -1,24 +1,30 @@
 <script lang="ts">
-	import { averagePasswordStrength } from '$lib/utils';
 	import { Record } from 'pocketbase';
+	import PasswordScore from '$lib/components/stats/PasswordScore.svelte';
+	import PasswordCount from '$lib/components/stats/PasswordCount.svelte';
+	import PasswordLeakRisk from '$lib/components/stats/PasswordLeakRisk.svelte';
+	import StatsGraph from '$lib/components/stats/StatsGraph.svelte';
 
 	export let data: {
 		user: Record;
 		passwords: [websiteID: string, website: string, password: string] | undefined;
 	};
-
-	const passStrength = Math.round((averagePasswordStrength(data.passwords) / 4) * 100);
 </script>
 
-<div class="flex bg-slate-200 w-[100vw] h-[100vh] p-10">
-	<!-- Average Password Strenght -->
-	<div class="flex flex-col bg-white rounded-xl p-4 justify-center items-center h-52 shadow-lg">
-		<h1 class="text-2xl">Password Score</h1>
-		<div
-			class="flex mt-4  text-xl p-4 border-main-orange-400 border-[5px] rounded-full w-32 h-32 items-center justify-center"
-			style="border-image: linear-gradient(to right, #ff6b00 {passStrength}%)"
-		>
-			<p class="text-center text-4xl font-semibold">{passStrength}</p>
-		</div>
+<div class="grid grid-cols-4 grid-rows-3 gap-10 bg-slate-200 w-[calc(100vw-12rem)] h-[100vh] p-10">
+	<div class="col-start-1 col-span-1">
+		<PasswordScore passwords={data.passwords} />
+	</div>
+	<div class="col-start-2 col-span-1">
+		<PasswordCount passwords={data.passwords} />
+	</div>
+	<div class="col-start-3 col-span-1">
+		<PasswordLeakRisk passwords={data.passwords} />
+	</div>
+	<div class="col-start-4 col-span-1 row-start-1 row-span-3">
+		<PasswordScore passwords={data.passwords} />
+	</div>
+	<div class="col-start-1 col-span-3 row-start-2 row-span-2">
+		<StatsGraph passwords={data.passwords} />
 	</div>
 </div>

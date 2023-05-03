@@ -28,7 +28,7 @@
 				transform="rotate(-90 60 60)"
 			/>
 			<g transform="translate(60, 60)">
-				<text x="0" y="0" text-anchor="middle" dy=".3em" font-size="30">{passStrength}</text>
+				<text x="0" y="0" text-anchor="middle" dy=".3em" font-size="35">{passStrength}</text>
 			</g>
 		</svg>
 	</div>

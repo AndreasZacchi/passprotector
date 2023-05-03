@@ -73,7 +73,7 @@
 				>
 			</div>
 			<!-- TODO: Modificer Passwords -->
-			<Passwords {passwords} />
+			<Passwords {passwords} searchTerms={ShownPasswords} />
 		</div>
 	</div>
 {/if}

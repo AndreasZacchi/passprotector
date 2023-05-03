@@ -9,7 +9,7 @@
 >
 	<!-- Chart menu -->
 	<div class="flex flex-row w-full items-center justify-center">
-		<h1 class="text-2xl">{shownData} Over Time</h1>
+		<h1 class="text-2xl text-center">{shownData} Over Time</h1>
 		<select id="graphData" class="justify-self-end place-self-end">
 			<option value="ranked">Ranked Passwords</option>
 			<option value="score">Password Score</option>

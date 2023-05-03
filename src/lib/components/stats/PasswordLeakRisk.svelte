@@ -13,7 +13,6 @@
 
 	const leakPercentage = Math.round(100 - (averagePasswordStrength(passwords) / 4) * 100);
 	const indicatorAngle = (leakPercentage / 100) * 180 - 90;
-	console.log(indicatorAngle);
 </script>
 
 <div

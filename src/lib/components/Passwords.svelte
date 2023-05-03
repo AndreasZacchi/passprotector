@@ -2,8 +2,6 @@
 	import Password from '$lib/components/Password.svelte';
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
 	export let searchTerms = [''];
-
-	let filteredPasswords: [websiteID: string, website: string, password: string] | undefined;
 </script>
 
 <!--TODO: after a certain amount of passwords, make it rendered by pages-->

@@ -8,6 +8,8 @@
 	let okPasswords: string[] = [];
 	let weakPasswords: string[] = [];
 
+	const bundleLimit = 10;
+
 	/* Passwords checker */
 	if (passwords != undefined) {
 		passwords.forEach(([websiteID, website, password]) => {
@@ -31,20 +33,32 @@
 	<div class="bg-slate-100 h-full w-full rounded-lg p-[4px] overflow-y-auto">
 		<!-- High password suggestions -->
 		<div>
-			{#each weakPasswords as password}
+			{#if weakPasswords.length <= bundleLimit}
+				{#each weakPasswords as password}
+					<p class="text-red-600 font-semibold mb-[3px]">
+						• {password}'s password is to weak
+					</p>
+				{/each}
+			{:else}
 				<p class="text-red-600 font-semibold mb-[3px]">
-					• {password}'s password is to weak
+					• {weakPasswords.length} passwords is to weak
 				</p>
-			{/each}
+			{/if}
 		</div>
 
 		<!-- Medium password suggestions-->
 		<div>
-			{#each okPasswords as password}
-				<p class="text-orange-400 font-semibold mb-[2px]">
-					• {password} needs to be changed
+			{#if okPasswords.length <= bundleLimit}
+				{#each okPasswords as password}
+					<p class="text-orange-600 font-semibold mb-[3px]">
+						• {password}'s password should be changed
+					</p>
+				{/each}
+			{:else}
+				<p class="text-orange-600 font-semibold mb-[3px]">
+					• {okPasswords.length} passwords should be changed
 				</p>
-			{/each}
+			{/if}
 		</div>
 	</div>
 </div>

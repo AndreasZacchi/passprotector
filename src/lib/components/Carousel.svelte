@@ -42,9 +42,9 @@
 			in:fly={{ x: -200, y: 0, delay: 450, opacity: 0 }}
 			out:fly={{ x: 200, y: 0 }}
 		>
-			<div class=" bg-main-300 flex h-full items-center rounded-l-2xl">
+			<div class=" bg-main-orange-300 flex h-full items-center rounded-l-2xl">
 				<img
-					class="mt-2 border-[6px] border-main-300 w-56 translate-x-20 h-56 rounded-[50%] object-cover"
+					class="mt-2 border-[6px] border-main-orange-300 w-56 translate-x-20 h-56 rounded-[50%] object-cover"
 					src={images[currentIndex].src}
 					alt="hello"
 				/>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Password from '$lib/components/Password.svelte';
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
-	export let searchTerm = '';
+	export let searchTerms = [''];
 </script>
 
 <!--TODO: after a certain amount of passwords, make it rendered by pages-->
@@ -17,11 +17,13 @@
 			</thead>
 			<tbody>
 				{#each passwords as [websiteID, website, password]}
-					{#if website.includes(searchTerm)}
-						<tr class="odd:bg-slate-200 even:bg-white w-[100%]">
-							<Password id={websiteID} {website} {password} />
-						</tr>
-					{/if}
+					{#each searchTerms as currentTerm}
+						{#if website.includes(currentTerm)}
+							<tr class="odd:bg-slate-200 even:bg-white w-[100%]">
+								<Password id={websiteID} {website} {password} />
+							</tr>
+						{/if}
+					{/each}
 				{/each}
 			</tbody>
 		</table>

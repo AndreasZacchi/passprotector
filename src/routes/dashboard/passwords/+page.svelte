@@ -1,19 +1,26 @@
 <script lang="ts">
 	import Passwords from '$lib/components/Passwords.svelte';
 	import Searchbar from '$lib/components/Searchbar.svelte';
-	import { string } from 'zod';
 	import { Record } from 'pocketbase';
 	import NewPasswordPopup from '$lib/components/NewPasswordPopup.svelte';
-	import activeNewPassDiv from '$lib/components/NewPasswordPopup.svelte';
+
 	export let data: {
 		user: Record;
 		passwords: [websiteID: string, website: string, password: string] | undefined;
 	};
+
 	let searchTerm: string;
 
-	$: console.log(searchTerm);
-
+	let searchTerms: string[] = [''];
 	let newPassDiv = false;
+
+	$: {
+		if (searchTerm !== undefined && searchTerm.trim() !== '') {
+			searchTerms = searchTerm.split(' ').filter((term) => term.trim() !== '');
+		} else {
+			searchTerms = [''];
+		}
+	}
 </script>
 
 <NewPasswordPopup activeNewPassDiv={newPassDiv} />
@@ -30,5 +37,5 @@
 		</button>
 	</div>
 	<!--Passwordlist-->
-	<Passwords passwords={data.passwords} bind:searchTerm />
+	<Passwords passwords={data.passwords} {searchTerms} />
 </div>

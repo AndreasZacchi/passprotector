@@ -1,12 +1,13 @@
 <script lang="ts">
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
+	
 
 	let shownData: string;
 
-	const DATA_COUNT = 7;
+	const DATA_COUNT = 3;
 	const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
 
-	const labels = Utils.months({ count: 7 });
+	const labels = { count: 3 };
 	const data = {
 		labels: labels,
 		datasets: [

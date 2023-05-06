@@ -28,11 +28,6 @@
 	function previous() {
 		currentIndex = (currentIndex - 1 + images.length) % images.length;
 	}
-
-	interface SlideParams {
-		x: number;
-		y: number;
-	}
 </script>
 
 <div class="grid grid-col-3 place-items-center gap-6 justify-center items-center py-10">

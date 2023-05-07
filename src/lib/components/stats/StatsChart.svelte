@@ -1,30 +1,63 @@
 <script lang="ts">
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
-	
+	import Chart from 'chart.js/auto';
+	import { passwordStrength } from '$lib/utils';
+	import { onMount } from 'svelte';
 
-	let shownData: string;
+	let shownData = 'Ranked Passwords';
 
-	const DATA_COUNT = 3;
-	const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+	let strongPasswords: string[] = [];
+	let okPasswords: string[] = [];
+	let weakPasswords: string[] = [];
 
-	const labels = { count: 3 };
-	const data = {
-		labels: labels,
-		datasets: [
-			{
-				label: 'Dataset 1',
-				data: Utils.numbers(NUMBER_CFG),
-				borderColor: Utils.CHART_COLORS.red,
-				backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5)
-			},
-			{
-				label: 'Dataset 2',
-				data: Utils.numbers(NUMBER_CFG),
-				borderColor: Utils.CHART_COLORS.blue,
-				backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5)
+	if (passwords != undefined) {
+		passwords.forEach(([websiteID, website, password]) => {
+			let passStrength = passwordStrength(password);
+			if (passStrength >= 2.66) {
+				strongPasswords.push(website);
+			} else if (passStrength >= 1.33) {
+				okPasswords.push(website);
+			} else {
+				weakPasswords.push(website);
 			}
-		]
+		});
+	}
+
+	const createChart = () => {
+		var ctx = document.getElementById('rankedpasswordschart');
+
+		const labels = ['Strong', 'ok', 'weak'];
+		const chartData = {
+			labels: labels,
+			datasets: [
+				{
+					label: 'Ranked Passwords',
+					data: [strongPasswords.length, okPasswords.length, weakPasswords.length],
+					backgroundColor: [
+						'rgba(21, 128, 61, 0.2)',
+						'rgba(202, 138, 4, 0.2)',
+						'rgba(185, 28, 28, 0.2)'
+					],
+					borderColor: ['rgba(21, 128, 61)', 'rgba(202, 138, 4)', 'rgba(185, 28, 28)'],
+					borderWidth: 1
+				}
+			]
+		};
+
+		new Chart(ctx, {
+			type: 'bar',
+			data: chartData,
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
 	};
+
+	onMount(createChart);
 </script>
 
 <div
@@ -32,16 +65,12 @@
 >
 	<!-- Chart menu -->
 	<div class="flex flex-row w-full items-center justify-center">
-		<h1 class="text-2xl text-center">{shownData} Over Time</h1>
-		<select id="graphData" class="justify-self-end place-self-end">
-			<option value="ranked">Ranked Passwords</option>
-			<option value="score">Password Score</option>
-			<option value="leakRisk">Password Leak Risk</option>
-		</select>
+		<h1 class="text-2xl text-center">Ranked Passwords Over Chart</h1>
 	</div>
 	<!-- installer chart.js -->
 	<!-- Midlertidig -->
-	<div class="flex border-2 border-slate-200 h-full w-full items-center justify-center">
-		<p>Chart</p>
-	</div>
+	<canvas
+		id="rankedpasswordschart"
+		class="flex border-2 border-slate-200 h-full w-full items-center justify-center"
+	/>
 </div>

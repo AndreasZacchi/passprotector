@@ -36,13 +36,6 @@
 					: 'transition-all hover:bg-main-orange-300 origin-left hover:translate-x-[0%]'} w-[110%] -translate-x-[10%] duration-200 text-left pl-8 h-10 flex items-center"
 				>Statistics</a
 			>
-			<a
-				href="./activity"
-				class="{currentPage == 'activity'
-					? 'bg-main-orange-300 w-[110%] translate-x-[0%] pl-8'
-					: 'transition-all hover:bg-main-orange-300 origin-left hover:translate-x-[0%]'} w-[110%] -translate-x-[10%] duration-200 text-left pl-8 h-10 flex items-center"
-				>Activity</a
-			>
 		{/if}
 	</div>
 

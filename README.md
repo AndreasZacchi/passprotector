@@ -39,7 +39,7 @@ Start the website
 
 In a new terminal window
 ```bash
-  cd /passprotector/pb
+  cd passprotector/pb
 ```
 Run pocketbase (database)
 ```bash

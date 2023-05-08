@@ -20,7 +20,7 @@
 			<img src="/logo.png" alt="logo" width="512" height="512" class=" h-28 w-28" />
 		</div>
 
-		<!-- Register text div -->
+		<!-- Login text div -->
 		<div class="flex justify-center">
 			<h1 class=" text-4xl pb-1">Login</h1>
 		</div>

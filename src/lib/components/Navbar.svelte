@@ -26,7 +26,7 @@
 		{:else if $page.url.pathname == '/'}
 			<a
 				href="/auth/login"
-				class=" font-semibold text-lg mx-2 hover:text-main-400 rounded-xl py-1 px-2 transition ease-linear delay-75"
+				class=" font-semibold text-lg mx-2 hover:text-main-orange-400 rounded-xl py-1 px-2 transition ease-linear delay-75"
 				>Log in</a
 			>
 			<a

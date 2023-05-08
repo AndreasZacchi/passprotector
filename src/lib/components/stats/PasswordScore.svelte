@@ -2,8 +2,9 @@
 	import { averagePasswordStrength } from '$lib/utils';
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
 
-	const passStrength = Math.round((averagePasswordStrength(passwords) / 4) * 100);
+	let passStrength = Math.round((averagePasswordStrength(passwords) / 4) * 100);
 
+	$: passStrength == -25 ? (passStrength = 0) : null;
 	$: circleRadius = 50;
 	$: circleCircumference = 2 * Math.PI * circleRadius;
 	$: circleOffset = circleCircumference - (passStrength / 100) * circleCircumference;

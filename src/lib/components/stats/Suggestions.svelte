@@ -36,12 +36,12 @@
 			{#if weakPasswords.length <= bundleLimit}
 				{#each weakPasswords as password}
 					<p class="text-red-600 font-semibold mb-[3px]">
-						• {password}'s password is to weak
+						• {password}'s password is too weak
 					</p>
 				{/each}
 			{:else}
 				<p class="text-red-600 font-semibold mb-[3px]">
-					• {weakPasswords.length} passwords is to weak
+					• {weakPasswords.length} passwords is too weak
 				</p>
 			{/if}
 		</div>

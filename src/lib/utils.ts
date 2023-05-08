@@ -60,7 +60,7 @@ export const generatePassword = (secret: string, specialChars: boolean) => {
 		}
 		return arr.join('');
 	})[0];
-	return CryptoJS.AES.encrypt(password, secret).toString();
+	return encryptUserPassword(password, secret);
 };
 
 export const encryptUserPassword = (password: string, secret: string) => {

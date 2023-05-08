@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { averagePasswordStrength } from '$lib/utils';
-	import { stringify } from 'postcss';
 
 	export let passwords: [websiteID: string, website: string, password: string] | undefined;
 
@@ -11,8 +10,11 @@
 		gradientId = `gradient-${Math.random().toString(36).substr(2, 9)}`;
 	});
 
-	const leakPercentage = Math.round(100 - (averagePasswordStrength(passwords) / 4) * 100);
-	const indicatorAngle = (leakPercentage / 100) * 180 - 90;
+	let leakPercentage = Math.round(100 - (averagePasswordStrength(passwords) / 4) * 100);
+	$: leakPercentage == 125 ? (leakPercentage = 50) : null;
+
+	let indicatorAngle = 50;
+	$: indicatorAngle = (leakPercentage / 100) * 180 - 90;
 </script>
 
 <div

@@ -16,7 +16,7 @@
 	let plan = 'Free';
 	let cardType = '';
 	$: ccnumber = ccnumber.replace(/[^0-9]/g, '');
-	$: ccname = ccname.replace(/[^A-z\ ]/g, '');
+	$: ccname = ccname.replace(/[^A-zæøåÆØÅ\ ]/g, '');
 	$: ccmonth = ccmonth.replace(/[^0-9]/g, '');
 	$: ccyear = ccyear.replace(/[^0-9]/g, '');
 	$: cccvc = cccvc.replace(/[^0-9]/g, '');
@@ -61,7 +61,7 @@
 	hover:border-gray-700 hover:border-b-[3px] hover:mb-[-1px]"
 					type="tel"
 					id="ccname"
-					maxlength="2"
+					maxlength="24"
 					name="ccname"
 					bind:value={ccname}
 				/>

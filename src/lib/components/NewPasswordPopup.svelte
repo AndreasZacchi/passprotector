@@ -78,7 +78,7 @@
 					<button
 						type="submit"
 						on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
-						class="bg-main-orange-300 font-semibold px-2 w-20 mt-5 hover:bg-opacity-[85%]"
+						class="bg-main-orange-300 font-semibold px-2 w-20 mt-5 hover:bg-opacity-[90%] text-white"
 						>Save</button
 					>
 				{:else}
@@ -86,7 +86,7 @@
 						disabled
 						type="submit"
 						on:click={() => (activeNewPassDiv = !activeNewPassDiv)}
-						class="bg-main-orange-300 px-2 w-20 mt-5 bg-opacity-[50%]">Save</button
+						class="bg-main-orange-300 px-2 w-20 mt-5 bg-opacity-[70%] text-white">Save</button
 					>
 				{/if}
 			</form>

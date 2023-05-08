@@ -8,58 +8,12 @@ export const serializeNonPOJOS = (obj: Record | Admin | null) => {
 	return structuredClone(obj);
 };
 
-export const generatePassword = (secret: string, specialChars: boolean) => {
-	let chars: string[];
-	if (specialChars) {
-		chars = [
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!&$%#',
-			'0123456789',
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!&$%#'
-		];
-	} else {
-		chars = [
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-			'0123456789',
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-		];
-	}
-	function randInt(this_max: number) {
-		let umax = Math.pow(2, 32);
-		let max = umax - (umax % this_max);
-		let r = new Uint32Array(1);
-		do {
-			crypto.getRandomValues(r);
-		} while (r[0] > max);
-		return r[0] % this_max;
-	}
+export const generatePassword = (secret: string) => {
+	let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!&$%#';
+	let password = Array.from(crypto.getRandomValues(new Uint32Array(chars.length / 2)))
+		.map((randomValue) => chars[randomValue % chars.length])
+		.join('');
 
-	let password = [
-		[11, 6, 7]
-			.map(function (len, i) {
-				return new Array(len)
-					.fill(chars[i])
-					.map((x) =>
-						(function (chars) {
-							let umax = Math.pow(2, 32),
-								r = new Uint32Array(1),
-								max = umax - (umax % chars.length);
-							do {
-								crypto.getRandomValues(r);
-							} while (r[0] > max);
-							return chars[r[0] % chars.length];
-						})(x)
-					)
-					.join('');
-			})
-			.join('')
-	].map((s) => {
-		let arr = s.split('');
-		for (let i = 0, n = arr.length; i < n - 2; i++) {
-			let j = randInt(n - i);
-			[arr[j], arr[i]] = [arr[i], arr[j]];
-		}
-		return arr.join('');
-	})[0];
 	return encryptUserPassword(password, secret);
 };
 

@@ -1,5 +1,7 @@
 import { invalidate } from '$app/navigation';
-import { error, redirect, type Actions } from '@sveltejs/kit';
+import { generatePassword } from '$lib/utils';
+import { error, redirect, type Actions, type ServerLoad } from '@sveltejs/kit';
+import { SECRET } from '$env/static/private';
 
 export const actions: Actions = {
 	changePlan: async ({ locals, request }) => {

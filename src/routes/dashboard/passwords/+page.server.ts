@@ -13,7 +13,7 @@ export const actions: Actions = {
 			let data = {
 				user: locals.user.id,
 				website: body.website,
-				password: generatePassword(SECRET, false)
+				password: generatePassword(SECRET)
 			};
 			if (body.userPassword) {
 				data = {

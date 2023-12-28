@@ -17,7 +17,7 @@
 		"@types/crypto-js": "^4.1.1",
 		"@types/cryptojs": "^3.1.30",
 		"autoprefixer": "^10.4.13",
-		"postcss": "^8.4.21",
+		"postcss": "^8.4.31",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
 		"svelte": "^3.54.0",
